@@ -1,0 +1,20 @@
+{
+    "app_id" : "com.tercertermino.anproapp",
+    "appname": "AnproCampus",
+    "desktopappname": "Moodle Desktop",
+    "versioncode" : "4000",
+    "versionname" : "4.0.0",
+    "cache_expiration_time" : 300000,
+    "default_lang" : "es",
+    "languages": {"en": "English", "es": "Español", "pt-br": "Português - Brasil"},
+    "wsservice" : "moodle_mobile_app",
+    "wsextservice" : "local_mobile",
+    "demo_sites": {},
+    "gcmpn": "194831313794",
+    "customurlscheme": "moodlemobile",
+    "siteurl": "http://www.anprocampus.com/",
+    "multisitesdisplay": "select",
+    "skipssoconfirmation": "true",
+    "forcedefaultlanguage": "false",
+    "privacypolicy": "https://moodle.org/mod/page/view.php?id=8148"
+}
