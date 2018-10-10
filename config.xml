@@ -3,9 +3,9 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.tercertermino.anproapp"
-        versionCode = "40100"
-        android-versionCode="40100"
-        version   = "4.0.1">
+        versionCode = "40200"
+        android-versionCode="40200"
+        version   = "4.0.2">
     <name>AnproCampus</name>
 
     <description>
