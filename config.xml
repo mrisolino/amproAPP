@@ -179,6 +179,10 @@
     <config-file target="*-Info.plist" parent="CFBundleDocumentTypes">
         <array>
             <dict>
+                <key>LSSupportsOpeningDocumentsInPlace</key>
+                <string>YES</string>  
+            </dict>
+            <dict>
                 <key>CFBundleTypeName</key>
                 <string>Unknown File</string>
                 <key>LSHandlerRank</key>
