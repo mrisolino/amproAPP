@@ -179,8 +179,7 @@
     <config-file target="*-Info.plist" parent="CFBundleDocumentTypes">
         <array>
             <dict>
-                <key>LSSupportsOpeningDocumentsInPlace</key>
-                <string>YES</string>  
+                <key>LSSupportsOpeningDocumentsInPlace</key><true/> 
             </dict>
             <dict>
                 <key>CFBundleTypeName</key>
