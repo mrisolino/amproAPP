@@ -3,9 +3,9 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.tercertermino.anproapp"
-        versionCode = "40200"
-        android-versionCode="40200"
-        version   = "4.0.2">
+        versionCode = "40300"
+        android-versionCode="40300"
+        version   = "4.0.3">
     <name>AnproCampus</name>
 
     <description>
@@ -17,7 +17,7 @@
     </author>
 
     <edit-config target="CFBundleShortVersionString" file="*-Info.plist" mode="merge">
-        <string>4.0.2</string>
+        <string>4.0.3</string>
     </edit-config>
 
     <gap:platform name="ios" />
