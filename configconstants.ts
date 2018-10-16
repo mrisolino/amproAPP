@@ -17,8 +17,8 @@ export class CoreConfigConstants {
     static app_id = 'com.tercertermino.anproapp';
     static appname = 'AnproCampus';
     static desktopappname = 'Moodle Desktop';
-    static versioncode = '4000';
-    static versionname = '4.0.0';
+    static versioncode = '4060';
+    static versionname = '4.0.6';
     static cache_expiration_time = 300000;
     static default_lang = 'es';
     static languages: any = {
@@ -32,8 +32,8 @@ export class CoreConfigConstants {
     static gcmpn = '194831313794';
     static customurlscheme = 'moodlemobile';
     static siteurl = 'http://www.anprocampus.com/';
-    static multisitesdisplay = 'select';
+    static multisitesdisplay = '';
     static skipssoconfirmation = 'true';
-    static forcedefaultlanguage = 'false';
+    static forcedefaultlanguage = 'true';
     static privacypolicy = 'https://moodle.org/mod/page/view.php?id=8148';
 }
