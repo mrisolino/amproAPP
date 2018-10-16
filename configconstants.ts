@@ -17,8 +17,8 @@ export class CoreConfigConstants {
     static app_id = 'com.tercertermino.anproapp';
     static appname = 'AnproCampus';
     static desktopappname = 'Moodle Desktop';
-    static versioncode = '4060';
-    static versionname = '4.0.6';
+    static versioncode = '4070';
+    static versionname = '4.0.7';
     static cache_expiration_time = 300000;
     static default_lang = 'es';
     static languages: any = {
