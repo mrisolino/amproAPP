@@ -32,7 +32,7 @@ export class CoreConfigConstants {
     static gcmpn = '194831313794';
     static customurlscheme = 'moodlemobile';
     static siteurl = 'http://www.anprocampus.com/';
-    static multisitesdisplay = '';
+    static multisitesdisplay = 'false';
     static skipssoconfirmation = 'true';
     static forcedefaultlanguage = 'true';
     static privacypolicy = 'https://moodle.org/mod/page/view.php?id=8148';
