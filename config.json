@@ -13,7 +13,7 @@
     "gcmpn": "194831313794",
     "customurlscheme": "moodlemobile",
     "siteurl": "http://www.anprocampus.com/",
-    "multisitesdisplay": "",
+    "multisitesdisplay": "false",
     "skipssoconfirmation": "true",
     "forcedefaultlanguage": "true",
     "privacypolicy": "https://moodle.org/mod/page/view.php?id=8148"
