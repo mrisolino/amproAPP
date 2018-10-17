@@ -1007,6 +1007,7 @@
     "core.courses.cannotretrievemorecategories": "No se pueden recuperar categorías más profundas que el nivel {{$a}}.",
     "core.courses.categories": "Categorías",
     "core.courses.confirmselfenrol": "¿Está seguro que desea auto-matricularse en este curso?",
+    "core.courses.courseoverview": "Resumen de cursos",
     "core.courses.courses": "Cursos",
     "core.courses.enrolme": "Matricularme",
     "core.courses.errorloadcategories": "Ocurrió un error al cargar categorías.",
