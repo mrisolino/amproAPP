@@ -1,6 +1,6 @@
 webpackJsonp([112],{
 
-/***/ 1783:
+/***/ 1762:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,8 +9,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__settings__ = __webpack_require__(1904);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pipes_pipes_module__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__settings__ = __webpack_require__(1883);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(67);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,6 +36,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AddonCalendarSettingsPageModule = /** @class */ (function () {
     function AddonCalendarSettingsPageModule() {
     }
@@ -44,7 +46,8 @@ var AddonCalendarSettingsPageModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_3__settings__["a" /* AddonCalendarSettingsPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_4__pipes_pipes_module__["a" /* CorePipesModule */],
+                __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__["a" /* CoreDirectivesModule */],
+                __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__["a" /* CorePipesModule */],
                 __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__settings__["a" /* AddonCalendarSettingsPage */]),
                 __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["b" /* TranslateModule */].forChild()
             ],
@@ -57,13 +60,13 @@ var AddonCalendarSettingsPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1904:
+/***/ 1883:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddonCalendarSettingsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_calendar__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_calendar__ = __webpack_require__(244);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_events__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_sites__ = __webpack_require__(2);
 // (C) Copyright 2015 Martin Dougiamas
@@ -122,7 +125,7 @@ var AddonCalendarSettingsPage = /** @class */ (function () {
     };
     AddonCalendarSettingsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-calendar-settings',template:/*ion-inline-start:"C:\github\amApp\src\addon\calendar\pages\settings\settings.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'core.settings.settings\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-list>\n\n        <ion-item>\n\n            <ion-label>{{ \'addon.calendar.defaultnotificationtime\' | translate }}</ion-label>\n\n            <ion-select [(ngModel)]="defaultTime" (ionChange)="updateDefaultTime($event)" interface="popover">\n\n                <ion-option value="0">{{ \'core.settings.disabled\' | translate }}</ion-option>\n\n                <ion-option value="10">{{ 600 | coreDuration }}</ion-option>\n\n                <ion-option value="30">{{ 1800 | coreDuration }}</ion-option>\n\n                <ion-option value="60">{{ 3600 | coreDuration }}</ion-option>\n\n                <ion-option value="120">{{ 7200 | coreDuration }}</ion-option>\n\n                <ion-option value="360">{{ 21600 | coreDuration }}</ion-option>\n\n                <ion-option value="720">{{ 43200 | coreDuration }}</ion-option>\n\n                <ion-option value="1440">{{ 86400 | coreDuration }}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\calendar\pages\settings\settings.html"*/,
+            selector: 'page-addon-calendar-settings',template:/*ion-inline-start:"C:\github\newAC\src\addon\calendar\pages\settings\settings.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'core.settings.settings\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-list>\n\n        <ion-item>\n\n            <ion-label>{{ \'addon.calendar.defaultnotificationtime\' | translate }}</ion-label>\n\n            <ion-select [(ngModel)]="defaultTime" (ionChange)="updateDefaultTime($event)" interface="popover">\n\n                <ion-option value="0">{{ \'core.settings.disabled\' | translate }}</ion-option>\n\n                <ion-option value="10">{{ 600 | coreDuration }}</ion-option>\n\n                <ion-option value="30">{{ 1800 | coreDuration }}</ion-option>\n\n                <ion-option value="60">{{ 3600 | coreDuration }}</ion-option>\n\n                <ion-option value="120">{{ 7200 | coreDuration }}</ion-option>\n\n                <ion-option value="360">{{ 21600 | coreDuration }}</ion-option>\n\n                <ion-option value="720">{{ 43200 | coreDuration }}</ion-option>\n\n                <ion-option value="1440">{{ 86400 | coreDuration }}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\calendar\pages\settings\settings.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__providers_calendar__["a" /* AddonCalendarProvider */], __WEBPACK_IMPORTED_MODULE_2__providers_events__["a" /* CoreEventsProvider */],
             __WEBPACK_IMPORTED_MODULE_3__providers_sites__["a" /* CoreSitesProvider */]])

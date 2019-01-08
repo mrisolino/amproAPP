@@ -1,6 +1,6 @@
 webpackJsonp([8],{
 
-/***/ 1893:
+/***/ 1873:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,8 +8,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoreViewerIframePageModule", function() { return CoreViewerIframePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__iframe__ = __webpack_require__(2018);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__iframe__ = __webpack_require__(1998);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +34,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var CoreViewerIframePageModule = /** @class */ (function () {
     function CoreViewerIframePageModule() {
     }
@@ -43,6 +45,7 @@ var CoreViewerIframePageModule = /** @class */ (function () {
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_3__components_components_module__["a" /* CoreComponentsModule */],
+                __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__["a" /* CoreDirectivesModule */],
                 __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__iframe__["a" /* CoreViewerIframePage */])
             ]
         })
@@ -54,13 +57,14 @@ var CoreViewerIframePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2018:
+/***/ 1998:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CoreViewerIframePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_sites__ = __webpack_require__(2);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -85,19 +89,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 /**
  * Page to display a URL in an iframe.
  */
 var CoreViewerIframePage = /** @class */ (function () {
-    function CoreViewerIframePage(params) {
+    //   "yes" -> Always auto-login.
+    //   "no" -> Never auto-login.
+    //   "check" -> Auto-login only if it points to the current site. Default value.
+    function CoreViewerIframePage(params, sitesProvider) {
+        var _this = this;
         this.title = params.get('title');
-        this.url = params.get('url');
+        this.autoLogin = params.get('autoLogin') || 'check';
+        var url = params.get('url'), currentSite = sitesProvider.getCurrentSite();
+        if (currentSite && (this.autoLogin == 'yes' || (this.autoLogin == 'check' && currentSite.containsUrl(url)))) {
+            // Format the URL to add auto-login.
+            currentSite.getAutoLoginUrl(url, false).then(function (url) {
+                _this.url = url;
+            });
+        }
+        else {
+            this.url = url;
+        }
     }
     CoreViewerIframePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-viewer-iframe',template:/*ion-inline-start:"C:\github\amApp\src\core\viewer\pages\iframe\iframe.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ title }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <core-iframe [src]="url"></core-iframe>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\core\viewer\pages\iframe\iframe.html"*/,
+            selector: 'page-core-viewer-iframe',template:/*ion-inline-start:"C:\github\newAC\src\core\viewer\pages\iframe\iframe.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ title }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <core-loading [hideUntil]="url">\n\n        <core-iframe *ngIf="url" [src]="url"></core-iframe>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\core\viewer\pages\iframe\iframe.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_sites__["a" /* CoreSitesProvider */]])
     ], CoreViewerIframePage);
     return CoreViewerIframePage;
 }());

@@ -1,6 +1,6 @@
 webpackJsonp([5],{
 
-/***/ 1832:
+/***/ 1813:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,9 +10,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_question_components_components_module__ = __webpack_require__(938);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__player__ = __webpack_require__(1953);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_question_components_components_module__ = __webpack_require__(925);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__player__ = __webpack_require__(1934);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +63,7 @@ var AddonModQuizPlayerPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1953:
+/***/ 1934:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77,11 +77,11 @@ var AddonModQuizPlayerPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_sync__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_utils_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_utils_time__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_question_providers_helper__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_quiz__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_quiz_sync__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_helper__ = __webpack_require__(250);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__classes_auto_save__ = __webpack_require__(1954);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_question_providers_helper__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_quiz__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_quiz_sync__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_helper__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__classes_auto_save__ = __webpack_require__(1935);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -138,6 +138,7 @@ var AddonModQuizPlayerPage = /** @class */ (function () {
         this.component = __WEBPACK_IMPORTED_MODULE_10__providers_quiz__["a" /* AddonModQuizProvider */].COMPONENT; // Component to link the files to.
         this.preflightData = {}; // Preflight data to attempt the quiz.
         this.forceLeave = false; // If true, don't perform any check when leaving the view.
+        this.reloadNavigaton = false; // Whether navigation needs to be reloaded because some data was sent to server.
         this.quizId = navParams.get('quizId');
         this.courseId = navParams.get('courseId');
         this.moduleUrl = navParams.get('moduleUrl');
@@ -217,13 +218,14 @@ var AddonModQuizPlayerPage = /** @class */ (function () {
             answers[button.name] = button.value;
             // Behaviour checks are always in online.
             return _this.quizProvider.processAttempt(_this.quiz, _this.attempt, answers, _this.preflightData).then(function () {
+                _this.reloadNavigaton = true; // Data sent to server, navigation should be reloaded.
                 // Reload the current page.
                 var scrollElement = _this.content.getScrollElement(), scrollTop = scrollElement.scrollTop || 0, scrollLeft = scrollElement.scrollLeft || 0;
                 _this.loaded = false;
-                _this.content.scrollToTop(); // Scroll top so the spinner is seen.
+                _this.domUtils.scrollToTop(_this.content); // Scroll top so the spinner is seen.
                 return _this.loadPage(_this.attempt.currentpage).finally(function () {
                     _this.loaded = true;
-                    _this.content.scrollTo(scrollLeft, scrollTop);
+                    _this.domUtils.scrollTo(_this.content, scrollLeft, scrollTop);
                 });
             }).finally(function () {
                 modal.dismiss();
@@ -260,11 +262,13 @@ var AddonModQuizPlayerPage = /** @class */ (function () {
             return;
         }
         this.loaded = false;
-        this.content.scrollToTop();
+        this.domUtils.scrollToTop(this.content);
         // First try to save the attempt data. We only save it if we're not seeing the summary.
         var promise = this.showSummary ? Promise.resolve() : this.processAttempt(false, false);
         promise.then(function () {
-            // Attempt data successfully saved, load the page or summary.
+            if (!_this.showSummary) {
+                _this.reloadNavigaton = true; // Data sent to server, navigation should be reloaded.
+            }
             // Attempt data successfully saved, load the page or summary.
             var subPromise;
             // Stop checking for changes during page change.
@@ -473,8 +477,37 @@ var AddonModQuizPlayerPage = /** @class */ (function () {
     AddonModQuizPlayerPage.prototype.loadNavigation = function () {
         var _this = this;
         // We use the attempt summary to build the navigation because it contains all the questions.
-        return this.quizProvider.getAttemptSummary(this.attempt.id, this.preflightData, this.offline).then(function (questions) {
+        return this.quizProvider.getAttemptSummary(this.attempt.id, this.preflightData, this.offline, true, true)
+            .then(function (questions) {
+            questions.forEach(function (question) {
+                question.stateClass = _this.questionHelper.getQuestionStateClass(question.state);
+            });
             _this.navigation = questions;
+        });
+    };
+    /**
+     * Open the navigation modal.
+     *
+     * @return {Promise<any>} Promise resolved when done.
+     */
+    AddonModQuizPlayerPage.prototype.openNavigation = function () {
+        var _this = this;
+        var promise;
+        if (this.reloadNavigaton) {
+            // Some data has changed, reload the navigation.
+            var modal_2 = this.domUtils.showModalLoading();
+            promise = this.loadNavigation().catch(function () {
+                // Ignore errors.
+            }).then(function () {
+                modal_2.dismiss();
+                _this.reloadNavigaton = false;
+            });
+        }
+        else {
+            promise = Promise.resolve();
+        }
+        return promise.finally(function () {
+            _this.navigationModal.present();
         });
     };
     // Prepare the answers to be sent for the attempt.
@@ -585,15 +618,15 @@ var AddonModQuizPlayerPage = /** @class */ (function () {
     ], AddonModQuizPlayerPage.prototype, "content", void 0);
     AddonModQuizPlayerPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-mod-quiz-player',template:/*ion-inline-start:"C:\github\amApp\src\addon\mod\quiz\pages\player\player.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title><core-format-text *ngIf="quiz" [text]="quiz.name"></core-format-text></ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button id="addon-mod_quiz-connection-error-button" ion-button icon-only [hidden]="!autoSaveError" (click)="showConnectionError($event)" [attr.aria-label]="\'core.error\' | translate">\n\n                <ion-icon name="alert"></ion-icon>\n\n            </button>\n\n            <button *ngIf="navigation && navigation.length" ion-button icon-only [attr.aria-label]="\'addon.mod_quiz.opentoc\' | translate" (click)="navigationModal.present()">\n\n                <ion-icon name="bookmark"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <!-- Navigation arrows and time left. -->\n\n    <ion-toolbar *ngIf="loaded && endTime && questions && questions.length && !quizAborted && !showSummary" color="light" ion-fixed>\n\n        <ion-title>\n\n            <core-timer [endTime]="endTime" (finished)="timeUp()" [timerText]="\'addon.mod_quiz.timeleft\' | translate" align="center"></core-timer>\n\n        </ion-title>\n\n        <ion-buttons end>\n\n            <a ion-button icon-only *ngIf="previousPage >= 0" (click)="changePage(previousPage)" [title]="\'core.previous\' | translate">\n\n                <ion-icon name="arrow-back" md="ios-arrow-back"></ion-icon>\n\n            </a>\n\n            <a ion-button icon-only *ngIf="nextPage >= -1" (click)="changePage(nextPage)" [title]="\'core.next\' | translate">\n\n                <ion-icon name="arrow-forward" md="ios-arrow-forward"></ion-icon>\n\n            </a>\n\n        </ion-buttons>\n\n    </ion-toolbar>\n\n    <core-loading [hideUntil]="loaded" [class.core-has-fixed-timer]="endTime">\n\n        <!-- Navigation arrows and time left. -->\n\n        <ion-toolbar *ngIf="!endTime && questions && questions.length && !quizAborted && !showSummary" color="light">\n\n            <ion-buttons end>\n\n                <a ion-button icon-only *ngIf="previousPage >= 0" (click)="changePage(previousPage)" [title]="\'core.previous\' | translate">\n\n                    <ion-icon name="arrow-back" md="ios-arrow-back"></ion-icon>\n\n                </a>\n\n                <a ion-button icon-only *ngIf="nextPage >= -1" (click)="changePage(nextPage)" [title]="\'core.next\' | translate">\n\n                    <ion-icon name="arrow-forward" md="ios-arrow-forward"></ion-icon>\n\n                </a>\n\n            </ion-buttons>\n\n        </ion-toolbar>\n\n        <!-- Button to start attempting. -->\n\n        <div padding *ngIf="!attempt">\n\n            <button ion-button block (click)="start()">{{ \'addon.mod_quiz.startattempt\' | translate }}</button>\n\n        </div>\n\n\n\n        <!-- Questions -->\n\n        <form name="addon-mod_quiz-player-form" *ngIf="questions && questions.length && !quizAborted && !showSummary">\n\n            <div *ngFor="let question of questions">\n\n                <ion-card id="addon-mod_quiz-question-{{question.slot}}">\n\n                    <!-- "Header" of the question. -->\n\n                    <ion-item-divider color="light">\n\n                        <h2 *ngIf="question.number" class="inline">{{ \'core.question.questionno\' | translate:{$a: question.number} }}</h2>\n\n                        <h2 *ngIf="!question.number" class="inline">{{ \'core.question.information\' | translate }}</h2>\n\n                        <ion-note text-wrap item-end *ngIf="question.status || question.readableMark">\n\n                            <p *ngIf="question.status" class="block">{{question.status}}</p>\n\n                            <p *ngIf="question.readableMark"><core-format-text [text]="question.readableMark"></core-format-text></p>\n\n                        </ion-note>\n\n                    </ion-item-divider>\n\n                    <!-- Body of the question. -->\n\n                    <core-question text-wrap [question]="question" [component]="component" [componentId]="quiz.coursemodule" [attemptId]="attempt.id" [offlineEnabled]="offline" (onAbort)="abortQuiz()" (buttonClicked)="behaviourButtonClicked($event)"></core-question>\n\n                </ion-card>\n\n            </div>\n\n        </form>\n\n\n\n        <!-- Go to next or previous page. -->\n\n        <ion-grid text-wrap *ngIf="questions && questions.length && !quizAborted && !showSummary">\n\n            <ion-row>\n\n                <ion-col *ngIf="previousPage >= 0" >\n\n                    <button ion-button block icon-start (click)="changePage(previousPage)">\n\n                        <ion-icon name="arrow-back" md="ios-arrow-back"></ion-icon>\n\n                        {{ \'core.previous\' | translate }}\n\n                    </button>\n\n                </ion-col>\n\n                <ion-col *ngIf="nextPage >= -1">\n\n                    <button ion-button block icon-end (click)="changePage(nextPage)">\n\n                        {{ \'core.next\' | translate }}\n\n                        <ion-icon name="arrow-forward" md="ios-arrow-forward"></ion-icon>\n\n                    </button>\n\n                </ion-col>\n\n            </ion-row>\n\n        </ion-grid>\n\n\n\n        <!-- Summary -->\n\n        <ion-card *ngIf="!quizAborted && showSummary && summaryQuestions && summaryQuestions.length" class="addon-mod_quiz-table">\n\n            <ion-card-header text-wrap>\n\n                <h2>{{ \'addon.mod_quiz.summaryofattempt\' | translate }}</h2>\n\n            </ion-card-header>\n\n            <!-- "Header" of the summary table. -->\n\n            <ion-item text-wrap>\n\n                <ion-row align-items-center>\n\n                    <ion-col col-3 text-center><b>{{ \'addon.mod_quiz.question\' | translate }}</b></ion-col>\n\n                    <ion-col col-9 text-center><b>{{ \'addon.mod_quiz.status\' | translate }}</b></ion-col>\n\n                </ion-row>\n\n            </ion-item>\n\n            <!-- Lift of questions of the summary table. -->\n\n            <ng-container *ngFor="let question of summaryQuestions">\n\n                <a ion-item (click)="changePage(question.page, false, question.slot)" *ngIf="question.number" [attr.aria-label]="\'core.question.questionno\' | translate:{$a: question.number}" [attr.detail-push]="!quiz.isSequential && canReturn ? true : null">\n\n                    <ion-row align-items-center>\n\n                        <ion-col col-3 text-center>{{ question.number }}</ion-col>\n\n                        <ion-col col-9 text-center>{{ question.status }}</ion-col>\n\n                    </ion-row>\n\n                </a>\n\n            </ng-container>\n\n            <!-- Button to return to last page seen. -->\n\n            <ion-item *ngIf="canReturn">\n\n                <a ion-button block (click)="changePage(attempt.currentpage)">{{ \'addon.mod_quiz.returnattempt\' | translate }}</a>\n\n            </ion-item>\n\n            <!-- Due date warning. -->\n\n            <ion-item text-wrap *ngIf="attempt.dueDateWarning">\n\n                {{ attempt.dueDateWarning }}\n\n            </ion-item>\n\n            <!-- Time left (if quiz is timed). -->\n\n            <core-timer *ngIf="endTime" [endTime]="endTime" (finished)="timeUp()" [timerText]="\'addon.mod_quiz.timeleft\' | translate"></core-timer>\n\n            <!-- List of messages explaining why the quiz cannot be submitted. -->\n\n            <ion-item text-wrap *ngIf="preventSubmitMessages.length">\n\n                <p class="item-heading">{{ \'addon.mod_quiz.cannotsubmitquizdueto\' | translate }}</p>\n\n                <p *ngFor="let message of preventSubmitMessages">{{message}}</p>\n\n                <a ion-button block icon-end [href]="moduleUrl" core-link>\n\n                    <ion-icon name="open"></ion-icon>\n\n                    {{ \'core.openinbrowser\' | translate }}\n\n                </a>\n\n            </ion-item>\n\n            <!-- Button to submit the quiz. -->\n\n            <ion-item *ngIf="!attempt.finishedOffline && !preventSubmitMessages.length">\n\n                <a ion-button block (click)="finishAttempt(true)">{{ \'addon.mod_quiz.submitallandfinish\' | translate }}</a>\n\n            </ion-item>\n\n        </ion-card>\n\n\n\n        <!-- Quiz aborted -->\n\n        <ion-card *ngIf="attempt && (((!questions || !questions.length) && !showSummary) || quizAborted)">\n\n            <ion-item text-wrap>\n\n                <p>{{ \'addon.mod_quiz.errorparsequestions\' | translate }}</p>\n\n            </ion-item>\n\n            <ion-item>\n\n                <a ion-button block icon-end [href]="moduleUrl" core-link>\n\n                    <ion-icon name="open"></ion-icon>\n\n                    {{ \'core.openinbrowser\' | translate }}\n\n                </a>\n\n            </ion-item>\n\n        </ion-card>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\mod\quiz\pages\player\player.html"*/,
+            selector: 'page-addon-mod-quiz-player',template:/*ion-inline-start:"C:\github\newAC\src\addon\mod\quiz\pages\player\player.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title><core-format-text *ngIf="quiz" [text]="quiz.name"></core-format-text></ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button id="addon-mod_quiz-connection-error-button" ion-button icon-only [hidden]="!autoSaveError" (click)="showConnectionError($event)" [attr.aria-label]="\'core.error\' | translate">\n\n                <ion-icon name="alert"></ion-icon>\n\n            </button>\n\n            <button *ngIf="navigation && navigation.length" ion-button icon-only [attr.aria-label]="\'addon.mod_quiz.opentoc\' | translate" (click)="openNavigation()">\n\n                <ion-icon name="bookmark"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <!-- Navigation arrows and time left. -->\n\n    <ion-toolbar *ngIf="loaded && endTime && questions && questions.length && !quizAborted && !showSummary" color="light" ion-fixed>\n\n        <ion-title>\n\n            <core-timer [endTime]="endTime" (finished)="timeUp()" [timerText]="\'addon.mod_quiz.timeleft\' | translate" align="center"></core-timer>\n\n        </ion-title>\n\n        <ion-buttons end>\n\n            <a ion-button icon-only *ngIf="previousPage >= 0" (click)="changePage(previousPage)" [title]="\'core.previous\' | translate">\n\n                <ion-icon name="arrow-back" md="ios-arrow-back"></ion-icon>\n\n            </a>\n\n            <a ion-button icon-only *ngIf="nextPage >= -1" (click)="changePage(nextPage)" [title]="\'core.next\' | translate">\n\n                <ion-icon name="arrow-forward" md="ios-arrow-forward"></ion-icon>\n\n            </a>\n\n        </ion-buttons>\n\n    </ion-toolbar>\n\n    <core-loading [hideUntil]="loaded" [class.core-has-fixed-timer]="endTime">\n\n        <!-- Navigation arrows and time left. -->\n\n        <ion-toolbar *ngIf="!endTime && questions && questions.length && !quizAborted && !showSummary" color="light">\n\n            <ion-buttons end>\n\n                <a ion-button icon-only *ngIf="previousPage >= 0" (click)="changePage(previousPage)" [title]="\'core.previous\' | translate">\n\n                    <ion-icon name="arrow-back" md="ios-arrow-back"></ion-icon>\n\n                </a>\n\n                <a ion-button icon-only *ngIf="nextPage >= -1" (click)="changePage(nextPage)" [title]="\'core.next\' | translate">\n\n                    <ion-icon name="arrow-forward" md="ios-arrow-forward"></ion-icon>\n\n                </a>\n\n            </ion-buttons>\n\n        </ion-toolbar>\n\n        <!-- Button to start attempting. -->\n\n        <div padding *ngIf="!attempt">\n\n            <button ion-button block (click)="start()">{{ \'addon.mod_quiz.startattempt\' | translate }}</button>\n\n        </div>\n\n\n\n        <!-- Questions -->\n\n        <form name="addon-mod_quiz-player-form" *ngIf="questions && questions.length && !quizAborted && !showSummary">\n\n            <div *ngFor="let question of questions">\n\n                <ion-card id="addon-mod_quiz-question-{{question.slot}}">\n\n                    <!-- "Header" of the question. -->\n\n                    <ion-item-divider color="light">\n\n                        <h2 *ngIf="question.number" class="inline">{{ \'core.question.questionno\' | translate:{$a: question.number} }}</h2>\n\n                        <h2 *ngIf="!question.number" class="inline">{{ \'core.question.information\' | translate }}</h2>\n\n                        <ion-note text-wrap item-end *ngIf="question.status || question.readableMark">\n\n                            <p *ngIf="question.status" class="block">{{question.status}}</p>\n\n                            <p *ngIf="question.readableMark"><core-format-text [text]="question.readableMark"></core-format-text></p>\n\n                        </ion-note>\n\n                    </ion-item-divider>\n\n                    <!-- Body of the question. -->\n\n                    <core-question text-wrap [question]="question" [component]="component" [componentId]="quiz.coursemodule" [attemptId]="attempt.id" [offlineEnabled]="offline" (onAbort)="abortQuiz()" (buttonClicked)="behaviourButtonClicked($event)"></core-question>\n\n                </ion-card>\n\n            </div>\n\n        </form>\n\n\n\n        <!-- Go to next or previous page. -->\n\n        <ion-grid text-wrap *ngIf="questions && questions.length && !quizAborted && !showSummary">\n\n            <ion-row>\n\n                <ion-col *ngIf="previousPage >= 0" >\n\n                    <button ion-button block icon-start color="light" (click)="changePage(previousPage)">\n\n                        <ion-icon name="arrow-back" md="ios-arrow-back"></ion-icon>\n\n                        {{ \'core.previous\' | translate }}\n\n                    </button>\n\n                </ion-col>\n\n                <ion-col *ngIf="nextPage >= -1">\n\n                    <button ion-button block icon-end (click)="changePage(nextPage)">\n\n                        {{ \'core.next\' | translate }}\n\n                        <ion-icon name="arrow-forward" md="ios-arrow-forward"></ion-icon>\n\n                    </button>\n\n                </ion-col>\n\n            </ion-row>\n\n        </ion-grid>\n\n\n\n        <!-- Summary -->\n\n        <ion-card *ngIf="!quizAborted && showSummary && summaryQuestions && summaryQuestions.length" class="addon-mod_quiz-table">\n\n            <ion-card-header text-wrap>\n\n                <h2>{{ \'addon.mod_quiz.summaryofattempt\' | translate }}</h2>\n\n            </ion-card-header>\n\n            <!-- "Header" of the summary table. -->\n\n            <ion-item text-wrap>\n\n                <ion-row align-items-center>\n\n                    <ion-col col-3 text-center><b>{{ \'addon.mod_quiz.question\' | translate }}</b></ion-col>\n\n                    <ion-col col-9 text-center><b>{{ \'addon.mod_quiz.status\' | translate }}</b></ion-col>\n\n                </ion-row>\n\n            </ion-item>\n\n            <!-- Lift of questions of the summary table. -->\n\n            <ng-container *ngFor="let question of summaryQuestions">\n\n                <a ion-item (click)="changePage(question.page, false, question.slot)" *ngIf="question.number" [attr.aria-label]="\'core.question.questionno\' | translate:{$a: question.number}" [attr.detail-push]="!quiz.isSequential && canReturn ? true : null">\n\n                    <ion-row align-items-center>\n\n                        <ion-col col-3 text-center>{{ question.number }}</ion-col>\n\n                        <ion-col col-9 text-center>{{ question.status }}</ion-col>\n\n                    </ion-row>\n\n                </a>\n\n            </ng-container>\n\n            <!-- Button to return to last page seen. -->\n\n            <ion-item *ngIf="canReturn">\n\n                <a ion-button block (click)="changePage(attempt.currentpage)">{{ \'addon.mod_quiz.returnattempt\' | translate }}</a>\n\n            </ion-item>\n\n            <!-- Due date warning. -->\n\n            <ion-item text-wrap *ngIf="attempt.dueDateWarning">\n\n                {{ attempt.dueDateWarning }}\n\n            </ion-item>\n\n            <!-- Time left (if quiz is timed). -->\n\n            <core-timer *ngIf="endTime" [endTime]="endTime" (finished)="timeUp()" [timerText]="\'addon.mod_quiz.timeleft\' | translate"></core-timer>\n\n            <!-- List of messages explaining why the quiz cannot be submitted. -->\n\n            <ion-item text-wrap *ngIf="preventSubmitMessages.length">\n\n                <p class="item-heading">{{ \'addon.mod_quiz.cannotsubmitquizdueto\' | translate }}</p>\n\n                <p *ngFor="let message of preventSubmitMessages">{{message}}</p>\n\n                <a ion-button block icon-end [href]="moduleUrl" core-link>\n\n                    <ion-icon name="open"></ion-icon>\n\n                    {{ \'core.openinbrowser\' | translate }}\n\n                </a>\n\n            </ion-item>\n\n            <!-- Button to submit the quiz. -->\n\n            <ion-item *ngIf="!attempt.finishedOffline && !preventSubmitMessages.length">\n\n                <a ion-button block (click)="finishAttempt(true)">{{ \'addon.mod_quiz.submitallandfinish\' | translate }}</a>\n\n            </ion-item>\n\n        </ion-card>\n\n\n\n        <!-- Quiz aborted -->\n\n        <ion-card *ngIf="attempt && (((!questions || !questions.length) && !showSummary) || quizAborted)">\n\n            <ion-item text-wrap>\n\n                <p>{{ \'addon.mod_quiz.errorparsequestions\' | translate }}</p>\n\n            </ion-item>\n\n            <ion-item>\n\n                <a ion-button block icon-end [href]="moduleUrl" core-link>\n\n                    <ion-icon name="open"></ion-icon>\n\n                    {{ \'core.openinbrowser\' | translate }}\n\n                </a>\n\n            </ion-item>\n\n        </ion-card>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\mod\quiz\pages\player\player.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_4__providers_logger__["a" /* CoreLoggerProvider */], __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["c" /* TranslateService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_4__providers_logger__["a" /* CoreLoggerProvider */], __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["c" /* TranslateService */],
             __WEBPACK_IMPORTED_MODULE_3__providers_events__["a" /* CoreEventsProvider */], __WEBPACK_IMPORTED_MODULE_5__providers_sites__["a" /* CoreSitesProvider */],
-            __WEBPACK_IMPORTED_MODULE_6__providers_sync__["a" /* CoreSyncProvider */], __WEBPACK_IMPORTED_MODULE_7__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["t" /* PopoverController */],
+            __WEBPACK_IMPORTED_MODULE_6__providers_sync__["a" /* CoreSyncProvider */], __WEBPACK_IMPORTED_MODULE_7__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["v" /* PopoverController */],
             __WEBPACK_IMPORTED_MODULE_8__providers_utils_time__["a" /* CoreTimeUtilsProvider */], __WEBPACK_IMPORTED_MODULE_10__providers_quiz__["a" /* AddonModQuizProvider */],
             __WEBPACK_IMPORTED_MODULE_12__providers_helper__["a" /* AddonModQuizHelperProvider */], __WEBPACK_IMPORTED_MODULE_11__providers_quiz_sync__["a" /* AddonModQuizSyncProvider */],
             __WEBPACK_IMPORTED_MODULE_9__core_question_providers_helper__["a" /* CoreQuestionHelperProvider */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ChangeDetectorRef */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* NavController */]])
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */]])
     ], AddonModQuizPlayerPage);
     return AddonModQuizPlayerPage;
 }());
@@ -602,13 +635,13 @@ var AddonModQuizPlayerPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1954:
+/***/ 1935:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddonModQuizAutoSave; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_connection_error_connection_error__ = __webpack_require__(961);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_connection_error_connection_error__ = __webpack_require__(948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs__);
 // (C) Copyright 2015 Martin Dougiamas
 //

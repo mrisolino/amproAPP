@@ -1,6 +1,6 @@
 webpackJsonp([79],{
 
-/***/ 1818:
+/***/ 1797:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,8 +10,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__new_discussion__ = __webpack_require__(1939);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__new_discussion__ = __webpack_require__(1918);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +60,7 @@ var AddonModForumNewDiscussionPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1939:
+/***/ 1918:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -75,14 +75,14 @@ var AddonModForumNewDiscussionPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_sync__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_utils_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_utils_text__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils_utils__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__core_fileuploader_providers_fileuploader__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_split_view_split_view__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_rich_text_editor_rich_text_editor_ts__ = __webpack_require__(945);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_forum__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_offline__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_helper__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_sync__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils_utils__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__core_fileuploader_providers_fileuploader__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_split_view_split_view__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_rich_text_editor_rich_text_editor_ts__ = __webpack_require__(932);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_forum__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_offline__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_helper__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_sync__ = __webpack_require__(193);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -193,7 +193,7 @@ var AddonModForumNewDiscussionPage = /** @class */ (function () {
         // Trigger view event, to highlight the current opened discussion in the split view.
         this.eventsProvider.trigger(__WEBPACK_IMPORTED_MODULE_14__providers_forum__["a" /* AddonModForumProvider */].VIEW_DISCUSSION_EVENT, {
             forumId: this.forumId,
-            discussion: -this.timeCreated,
+            discussion: -this.timeCreated
         }, this.sitesProvider.getCurrentSiteId());
     };
     /**
@@ -434,7 +434,7 @@ var AddonModForumNewDiscussionPage = /** @class */ (function () {
             // Trigger view event, to highlight the current opened discussion in the split view.
             this.eventsProvider.trigger(__WEBPACK_IMPORTED_MODULE_14__providers_forum__["a" /* AddonModForumProvider */].VIEW_DISCUSSION_EVENT, {
                 forumId: this.forumId,
-                discussion: 0,
+                discussion: 0
             }, this.sitesProvider.getCurrentSiteId());
         }
         else {
@@ -579,11 +579,11 @@ var AddonModForumNewDiscussionPage = /** @class */ (function () {
     ], AddonModForumNewDiscussionPage.prototype, "messageEditor", void 0);
     AddonModForumNewDiscussionPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-mod-forum-new-discussion',template:/*ion-inline-start:"C:\github\amApp\src\addon\mod\forum\pages\new-discussion\new-discussion.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'addon.mod_forum.addanewdiscussion\' | translate }}</ion-title>\n\n        <ion-buttons end>\n\n            <!-- The context menu will be added in here. -->\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="groupsLoaded" (ionRefresh)="refreshGroups($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <core-loading [hideUntil]="groupsLoaded">\n\n        <ion-list *ngIf="showForm">\n\n            <ion-item>\n\n                <ion-label stacked>{{ \'addon.mod_forum.subject\' | translate }}</ion-label>\n\n                <ion-input type="text" [placeholder]="\'addon.mod_forum.subject\' | translate" [(ngModel)]="newDiscussion.subject"></ion-input>\n\n            </ion-item>\n\n            <ion-item>\n\n                <ion-label stacked>{{ \'addon.mod_forum.message\' | translate }}</ion-label>\n\n                <core-rich-text-editor item-content [control]="messageControl" (contentChanged)="onMessageChange($event)" [placeholder]="\'addon.mod_forum.message\' | translate" name="addon_mod_forum_new_discussion" [component]="component" [componentId]="forum.cmid"></core-rich-text-editor>\n\n            </ion-item>\n\n            <ion-item *ngIf="showGroups">\n\n                <ion-label id="addon-mod-forum-groupslabel">{{ \'addon.mod_forum.group\' | translate }}</ion-label>\n\n                <ion-select [(ngModel)]="newDiscussion.groupId" aria-labelledby="addon-mod-forum-groupslabel" interface="popover">\n\n                    <ion-option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</ion-option>\n\n                </ion-select>\n\n            </ion-item>\n\n            <ion-item>\n\n                <ion-label>{{ \'addon.mod_forum.discussionsubscription\' | translate }}</ion-label>\n\n                <ion-toggle [(ngModel)]="newDiscussion.subscribe"></ion-toggle>\n\n            </ion-item>\n\n            <ion-item *ngIf="canPin">\n\n                <ion-label>{{ \'addon.mod_forum.discussionpinned\' | translate }}</ion-label>\n\n                <ion-toggle [(ngModel)]="newDiscussion.pin"></ion-toggle>\n\n            </ion-item>\n\n            <core-attachments *ngIf="canCreateAttachments && forum && forum.maxattachments > 0" [files]="newDiscussion.files" [maxSize]="forum.maxbytes" [maxSubmissions]="forum.maxattachments" [component]="component" [componentId]="forum.cmid" [allowOffline]="true"></core-attachments>\n\n            <ion-item>\n\n                <ion-row>\n\n                    <ion-col>\n\n                        <button ion-button block (click)="add()" [disabled]="newDiscussion.subject == \'\' || newDiscussion.message == null">{{ \'addon.mod_forum.posttoforum\' | translate }}</button>\n\n                    </ion-col>\n\n                    <ion-col *ngIf="hasOffline">\n\n                        <button ion-button block color="light" (click)="discard()">{{ \'core.discard\' | translate }}</button>\n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-item>\n\n        </ion-list>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\mod\forum\pages\new-discussion\new-discussion.html"*/,
+            selector: 'page-addon-mod-forum-new-discussion',template:/*ion-inline-start:"C:\github\newAC\src\addon\mod\forum\pages\new-discussion\new-discussion.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'addon.mod_forum.addanewdiscussion\' | translate }}</ion-title>\n\n        <ion-buttons end>\n\n            <!-- The context menu will be added in here. -->\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="groupsLoaded" (ionRefresh)="refreshGroups($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <core-loading [hideUntil]="groupsLoaded">\n\n        <ion-list *ngIf="showForm">\n\n            <ion-item>\n\n                <ion-label stacked>{{ \'addon.mod_forum.subject\' | translate }}</ion-label>\n\n                <ion-input type="text" [placeholder]="\'addon.mod_forum.subject\' | translate" [(ngModel)]="newDiscussion.subject"></ion-input>\n\n            </ion-item>\n\n            <ion-item>\n\n                <ion-label stacked>{{ \'addon.mod_forum.message\' | translate }}</ion-label>\n\n                <core-rich-text-editor item-content [control]="messageControl" (contentChanged)="onMessageChange($event)" [placeholder]="\'addon.mod_forum.message\' | translate" name="addon_mod_forum_new_discussion" [component]="component" [componentId]="forum.cmid"></core-rich-text-editor>\n\n            </ion-item>\n\n            <ion-item *ngIf="showGroups">\n\n                <ion-label id="addon-mod-forum-groupslabel">{{ \'addon.mod_forum.group\' | translate }}</ion-label>\n\n                <ion-select [(ngModel)]="newDiscussion.groupId" aria-labelledby="addon-mod-forum-groupslabel" interface="popover">\n\n                    <ion-option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</ion-option>\n\n                </ion-select>\n\n            </ion-item>\n\n            <ion-item>\n\n                <ion-label>{{ \'addon.mod_forum.discussionsubscription\' | translate }}</ion-label>\n\n                <ion-toggle [(ngModel)]="newDiscussion.subscribe"></ion-toggle>\n\n            </ion-item>\n\n            <ion-item *ngIf="canPin">\n\n                <ion-label>{{ \'addon.mod_forum.discussionpinned\' | translate }}</ion-label>\n\n                <ion-toggle [(ngModel)]="newDiscussion.pin"></ion-toggle>\n\n            </ion-item>\n\n            <core-attachments *ngIf="canCreateAttachments && forum && forum.maxattachments > 0" [files]="newDiscussion.files" [maxSize]="forum.maxbytes" [maxSubmissions]="forum.maxattachments" [component]="component" [componentId]="forum.cmid" [allowOffline]="true"></core-attachments>\n\n            <ion-item>\n\n                <ion-row>\n\n                    <ion-col>\n\n                        <button ion-button block (click)="add()" [disabled]="newDiscussion.subject == \'\' || newDiscussion.message == null">{{ \'addon.mod_forum.posttoforum\' | translate }}</button>\n\n                    </ion-col>\n\n                    <ion-col *ngIf="hasOffline">\n\n                        <button ion-button block color="light" (click)="discard()">{{ \'core.discard\' | translate }}</button>\n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-item>\n\n        </ion-list>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\mod\forum\pages\new-discussion\new-discussion.html"*/,
         }),
         __param(15, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Optional */])()),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["r" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["q" /* NavController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["s" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["r" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */],
             __WEBPACK_IMPORTED_MODULE_8__providers_utils_dom__["a" /* CoreDomUtilsProvider */],
             __WEBPACK_IMPORTED_MODULE_4__providers_events__["a" /* CoreEventsProvider */],

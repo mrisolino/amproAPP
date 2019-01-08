@@ -1,6 +1,6 @@
 webpackJsonp([111],{
 
-/***/ 1784:
+/***/ 1763:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,7 +10,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__competencies__ = __webpack_require__(1905);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__competencies__ = __webpack_require__(1884);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,17 +36,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AddonCompetencyCompetenciesPageModule = /** @class */ (function () {
     function AddonCompetencyCompetenciesPageModule() {
     }
     AddonCompetencyCompetenciesPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_4__competencies__["a" /* AddonCompetencyCompetenciesPage */],
+                __WEBPACK_IMPORTED_MODULE_5__competencies__["a" /* AddonCompetencyCompetenciesPage */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_3__components_components_module__["a" /* CoreComponentsModule */],
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_4__competencies__["a" /* AddonCompetencyCompetenciesPage */]),
+                __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__["a" /* CoreDirectivesModule */],
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_5__competencies__["a" /* AddonCompetencyCompetenciesPage */]),
                 __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["b" /* TranslateModule */].forChild()
             ],
         })
@@ -57,7 +60,7 @@ var AddonCompetencyCompetenciesPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1905:
+/***/ 1884:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66,8 +69,8 @@ var AddonCompetencyCompetenciesPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_utils_dom__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_split_view_split_view__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_competency__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_split_view_split_view__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_competency__ = __webpack_require__(158);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -204,9 +207,9 @@ var AddonCompetencyCompetenciesPage = /** @class */ (function () {
     ], AddonCompetencyCompetenciesPage.prototype, "splitviewCtrl", void 0);
     AddonCompetencyCompetenciesPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-competency-competencies',template:/*ion-inline-start:"C:\github\amApp\src\addon\competency\pages\competencies\competencies.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ title }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<core-split-view>\n\n    <ion-content>\n\n        <ion-refresher [enabled]="competenciesLoaded" (ionRefresh)="refreshCompetencies($event)">\n\n            <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n        </ion-refresher>\n\n        <core-loading [hideUntil]="competenciesLoaded">\n\n            <ion-list>\n\n                <a ion-item text-wrap *ngFor="let competency of competencies" [title]="competency.competency.shortname" (click)="openCompetency(competency.competency.id)" [class.core-split-item-selected]="competency.competency.id == competencyId">\n\n                    {{ competency.competency.shortname }} <small>{{competency.competency.idnumber}}</small>\n\n                    <ion-badge item-end *ngIf="competency.usercompetency" [color]="competency.usercompetency.proficiency ? \'success\' : \'danger\'">{{ competency.usercompetency.gradename }}</ion-badge>\n\n                    <ion-badge item-end *ngIf="competency.usercompetencycourse" [color]="competency.usercompetencycourse.proficiency ? \'success\' : \'danger\'">{{ competency.usercompetencycourse.gradename }}</ion-badge>\n\n                </a>\n\n            </ion-list>\n\n        </core-loading>\n\n    </ion-content>\n\n</core-split-view>'/*ion-inline-end:"C:\github\amApp\src\addon\competency\pages\competencies\competencies.html"*/,
+            selector: 'page-addon-competency-competencies',template:/*ion-inline-start:"C:\github\newAC\src\addon\competency\pages\competencies\competencies.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ title }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<core-split-view>\n\n    <ion-content>\n\n        <ion-refresher [enabled]="competenciesLoaded" (ionRefresh)="refreshCompetencies($event)">\n\n            <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n        </ion-refresher>\n\n        <core-loading [hideUntil]="competenciesLoaded">\n\n            <ion-list>\n\n                <a ion-item text-wrap *ngFor="let competency of competencies" [title]="competency.competency.shortname" (click)="openCompetency(competency.competency.id)" [class.core-split-item-selected]="competency.competency.id == competencyId">\n\n                    {{ competency.competency.shortname }} <small>{{competency.competency.idnumber}}</small>\n\n                    <ion-badge item-end *ngIf="competency.usercompetency" [color]="competency.usercompetency.proficiency ? \'success\' : \'danger\'">{{ competency.usercompetency.gradename }}</ion-badge>\n\n                    <ion-badge item-end *ngIf="competency.usercompetencycourse" [color]="competency.usercompetencycourse.proficiency ? \'success\' : \'danger\'">{{ competency.usercompetencycourse.gradename }}</ion-badge>\n\n                </a>\n\n            </ion-list>\n\n        </core-loading>\n\n    </ion-content>\n\n</core-split-view>'/*ion-inline-end:"C:\github\newAC\src\addon\competency\pages\competencies\competencies.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_3__providers_utils_dom__["a" /* CoreDomUtilsProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_3__providers_utils_dom__["a" /* CoreDomUtilsProvider */],
             __WEBPACK_IMPORTED_MODULE_5__providers_competency__["a" /* AddonCompetencyProvider */]])
     ], AddonCompetencyCompetenciesPage);
     return AddonCompetencyCompetenciesPage;

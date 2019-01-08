@@ -1,6 +1,6 @@
 webpackJsonp([95],{
 
-/***/ 1802:
+/***/ 1782:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,9 +10,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__chat__ = __webpack_require__(1923);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__chat__ = __webpack_require__(1903);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +63,7 @@ var AddonModChatChatPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1923:
+/***/ 1903:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71,14 +71,15 @@ var AddonModChatChatPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_app__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_logger__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_sites__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_utils_dom__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils_text__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_chat__ = __webpack_require__(395);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_network__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_moment__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_events__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_logger__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_sites__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils_dom__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_utils_text__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_chat__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_network__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_moment__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_moment__);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -111,11 +112,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
  * Page that displays a chat session.
  */
 var AddonModChatChatPage = /** @class */ (function () {
-    function AddonModChatChatPage(navParams, logger, network, zone, navCtrl, chatProvider, appProvider, sitesProvider, modalCtrl, domUtils, textUtils) {
+    function AddonModChatChatPage(navParams, logger, network, zone, navCtrl, chatProvider, appProvider, sitesProvider, modalCtrl, domUtils, textUtils, eventsProvider) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.chatProvider = chatProvider;
@@ -123,6 +125,7 @@ var AddonModChatChatPage = /** @class */ (function () {
         this.modalCtrl = modalCtrl;
         this.domUtils = domUtils;
         this.textUtils = textUtils;
+        this.eventsProvider = eventsProvider;
         this.loaded = false;
         this.messages = [];
         this.lastTime = 0;
@@ -159,6 +162,10 @@ var AddonModChatChatPage = /** @class */ (function () {
             _this.navCtrl.pop();
         }).finally(function () {
             _this.loaded = true;
+        });
+        // Recalculate footer position when keyboard is shown or hidden.
+        this.keyboardObserver = this.eventsProvider.on(__WEBPACK_IMPORTED_MODULE_3__providers_events__["a" /* CoreEventsProvider */].KEYBOARD_CHANGE, function (kbHeight) {
+            _this.content.resize();
         });
     };
     /**
@@ -233,7 +240,7 @@ var AddonModChatChatPage = /** @class */ (function () {
             _this.fetchMessagesInterval().catch(function () {
                 // Ignore errors.
             });
-        }, __WEBPACK_IMPORTED_MODULE_7__providers_chat__["a" /* AddonModChatProvider */].POLL_INTERVAL);
+        }, __WEBPACK_IMPORTED_MODULE_8__providers_chat__["a" /* AddonModChatProvider */].POLL_INTERVAL);
     };
     /**
      * Stop polling for messages.
@@ -286,7 +293,7 @@ var AddonModChatChatPage = /** @class */ (function () {
             return true;
         }
         // Check if day has changed.
-        return !__WEBPACK_IMPORTED_MODULE_9_moment__(message.timestamp * 1000).isSame(prevMessage.timestamp * 1000, 'day');
+        return !__WEBPACK_IMPORTED_MODULE_10_moment__(message.timestamp * 1000).isSame(prevMessage.timestamp * 1000, 'day');
     };
     /**
      * Send a message to the chat.
@@ -342,7 +349,7 @@ var AddonModChatChatPage = /** @class */ (function () {
         // Need a timeout to leave time to the view to be rendered.
         setTimeout(function () {
             if (!_this.viewDestroyed) {
-                _this.content.scrollToBottom(0);
+                _this.domUtils.scrollToBottom(_this.content, 0);
             }
         });
     };
@@ -356,12 +363,12 @@ var AddonModChatChatPage = /** @class */ (function () {
         // Wait for new content height to be calculated.
         setTimeout(function () {
             // Visible content size changed, maintain the bottom position.
-            if (!_this.viewDestroyed && _this.content && _this.content.contentHeight != _this.oldContentHeight) {
+            if (!_this.viewDestroyed && _this.content && _this.domUtils.getContentHeight(_this.content) != _this.oldContentHeight) {
                 if (!top) {
                     top = _this.content.getContentDimensions().scrollTop;
                 }
-                top += _this.oldContentHeight - _this.content.contentHeight;
-                _this.oldContentHeight = _this.content.contentHeight;
+                top += _this.oldContentHeight - _this.domUtils.getContentHeight(_this.content);
+                _this.oldContentHeight = _this.domUtils.getContentHeight(_this.content);
                 _this.content.scrollTo(0, top, 0);
             }
         });
@@ -371,6 +378,7 @@ var AddonModChatChatPage = /** @class */ (function () {
      */
     AddonModChatChatPage.prototype.ngOnDestroy = function () {
         this.onlineObserver && this.onlineObserver.unsubscribe();
+        this.keyboardObserver && this.keyboardObserver.off();
         this.stopPolling();
         this.viewDestroyed = true;
     };
@@ -380,11 +388,12 @@ var AddonModChatChatPage = /** @class */ (function () {
     ], AddonModChatChatPage.prototype, "content", void 0);
     AddonModChatChatPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-mod-chat-chat',template:/*ion-inline-start:"C:\github\amApp\src\addon\mod\chat\pages\chat\chat.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title><core-format-text [text]="title"></core-format-text></ion-title>\n\n        <ion-buttons end>\n\n            <button *ngIf="loaded" ion-button icon-only (click)="showChatUsers()">\n\n                <ion-icon name="people"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <core-loading [hideUntil]="loaded">\n\n        <div aria-live="polite">\n\n            <div *ngFor="let message of messages; index as index; last as last">\n\n\n\n                <div text-center *ngIf="showDate(messages[index], messages[index - 1])" class="addon-mod-chat-notice">\n\n                    <ion-badge text-wrap color="light">\n\n                        <span>{{ message.timestamp * 1000 | coreFormatDate:"dfdayweekmonth" }}</span>\n\n                    </ion-badge>\n\n                </div>\n\n\n\n                <div text-center *ngIf="message.system && message.message == \'enter\'" class="addon-mod-chat-notice">\n\n                    <ion-badge text-wrap color="light">\n\n                        <span>{{ message.timestamp * 1000 | coreFormatDate:"dftimedate" }} {{ \'addon.mod_chat.messageenter\' | translate:{$a: message.userfullname} }}</span>\n\n                    </ion-badge>\n\n                </div>\n\n\n\n                <div text-center *ngIf="message.system && message.message == \'exit\'" class="addon-mod-chat-notice">\n\n                    <ion-badge text-wrap color="light">\n\n                        <span>{{ message.timestamp * 1000 | coreFormatDate:"dftimedate" }} {{ \'addon.mod_chat.messageexit\' | translate:{$a: message.userfullname} }}</span>\n\n                    </ion-badge>\n\n                </div>\n\n\n\n                <div text-center *ngIf="message.message == currentUserBeep" class="addon-mod-chat-notice">\n\n                    <ion-badge text-wrap color="light">\n\n                        <span>{{ \'addon.mod_chat.messagebeepsyou\' | translate:{$a: message.userfullname} }}</span>\n\n                    </ion-badge>\n\n                </div>\n\n\n\n                <ion-item text-wrap *ngIf="!message.system && message.message.substr(0, 4) != \'beep\'" class="addon-mod-chat-message">\n\n                    <ion-avatar item-start>\n\n                        <img [src]="message.userprofileimageurl" onError="this.src=\'assets/img/user-avatar.png\'" core-external-content [alt]="\'core.pictureof\' | translate:{$a: message.userfullname}" role="presentation">\n\n                    </ion-avatar>\n\n                    <h2>\n\n                        <p float-right>{{ message.timestamp * 1000 | coreFormatDate:"dftimedate" }}</p>\n\n                        <core-format-text [text]="message.userfullname"></core-format-text>\n\n                    </h2>\n\n                    <core-format-text [text]="message.message" (afterRender)="last && scrollToBottom()"></core-format-text>\n\n                </ion-item>\n\n            </div>\n\n\n\n            <div text-center margin *ngIf="!messages || messages.length <= 0">\n\n                <p>{{ \'addon.mod_chat.nomessages\' | translate}}</p>\n\n            </div>\n\n        </div>\n\n    </core-loading>\n\n</ion-content>\n\n<ion-footer color="light" class="footer-adjustable">\n\n    <ion-toolbar color="light" position="bottom">\n\n        <p text-center *ngIf="!isOnline">{{ \'addon.mod_chat.mustbeonlinetosendmessages\' | translate }}</p>\n\n        <core-send-message-form *ngIf="isOnline && polling && loaded" [message]="newMessage" (onSubmit)="sendMessage($event)" [showKeyboard]="showKeyboard" [placeholder]="\'addon.messages.newmessage\' | translate" (onResize)="resizeContent()"></core-send-message-form>\n\n        <button *ngIf="isOnline && !polling && loaded" (click)="reconnect()" ion-button block color="light">{{ \'core.login.reconnect\' | translate }}</button>\n\n    </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\mod\chat\pages\chat\chat.html"*/,
+            selector: 'page-addon-mod-chat-chat',template:/*ion-inline-start:"C:\github\newAC\src\addon\mod\chat\pages\chat\chat.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title><core-format-text [text]="title"></core-format-text></ion-title>\n\n        <ion-buttons end>\n\n            <button *ngIf="loaded" ion-button icon-only (click)="showChatUsers()">\n\n                <ion-icon name="people"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content  class="has-footer">\n\n    <core-loading [hideUntil]="loaded">\n\n        <div aria-live="polite">\n\n            <div *ngFor="let message of messages; index as index; last as last">\n\n\n\n                <div text-center *ngIf="showDate(messages[index], messages[index - 1])" class="addon-mod-chat-notice">\n\n                    <ion-badge text-wrap color="light">\n\n                        <span>{{ message.timestamp * 1000 | coreFormatDate:"dfdayweekmonth" }}</span>\n\n                    </ion-badge>\n\n                </div>\n\n\n\n                <div text-center *ngIf="message.system && message.message == \'enter\'" class="addon-mod-chat-notice">\n\n                    <ion-badge text-wrap color="light">\n\n                        <span>{{ message.timestamp * 1000 | coreFormatDate:"dftimedate" }} {{ \'addon.mod_chat.messageenter\' | translate:{$a: message.userfullname} }}</span>\n\n                    </ion-badge>\n\n                </div>\n\n\n\n                <div text-center *ngIf="message.system && message.message == \'exit\'" class="addon-mod-chat-notice">\n\n                    <ion-badge text-wrap color="light">\n\n                        <span>{{ message.timestamp * 1000 | coreFormatDate:"dftimedate" }} {{ \'addon.mod_chat.messageexit\' | translate:{$a: message.userfullname} }}</span>\n\n                    </ion-badge>\n\n                </div>\n\n\n\n                <div text-center *ngIf="message.message == currentUserBeep" class="addon-mod-chat-notice">\n\n                    <ion-badge text-wrap color="light">\n\n                        <span>{{ \'addon.mod_chat.messagebeepsyou\' | translate:{$a: message.userfullname} }}</span>\n\n                    </ion-badge>\n\n                </div>\n\n\n\n                <ion-item text-wrap *ngIf="!message.system && message.message.substr(0, 4) != \'beep\'" class="addon-mod-chat-message">\n\n                    <ion-avatar item-start>\n\n                        <img [src]="message.userprofileimageurl" onError="this.src=\'assets/img/user-avatar.png\'" core-external-content [alt]="\'core.pictureof\' | translate:{$a: message.userfullname}" role="presentation">\n\n                    </ion-avatar>\n\n                    <h2>\n\n                        <p float-end>{{ message.timestamp * 1000 | coreFormatDate:"dftimedate" }}</p>\n\n                        <core-format-text [text]="message.userfullname"></core-format-text>\n\n                    </h2>\n\n                    <core-format-text [text]="message.message" (afterRender)="last && scrollToBottom()"></core-format-text>\n\n                </ion-item>\n\n            </div>\n\n\n\n            <div text-center margin *ngIf="!messages || messages.length <= 0">\n\n                <p>{{ \'addon.mod_chat.nomessages\' | translate}}</p>\n\n            </div>\n\n        </div>\n\n    </core-loading>\n\n</ion-content>\n\n<ion-footer color="light" class="footer-adjustable">\n\n    <ion-toolbar color="light" position="bottom">\n\n        <p text-center *ngIf="!isOnline">{{ \'addon.mod_chat.mustbeonlinetosendmessages\' | translate }}</p>\n\n        <core-send-message-form *ngIf="isOnline && polling && loaded" [message]="newMessage" (onSubmit)="sendMessage($event)" [showKeyboard]="showKeyboard" [placeholder]="\'addon.messages.newmessage\' | translate" (onResize)="resizeContent()"></core-send-message-form>\n\n        <button *ngIf="isOnline && !polling && loaded" (click)="reconnect()" ion-button block color="light">{{ \'core.login.reconnect\' | translate }}</button>\n\n    </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\mod\chat\pages\chat\chat.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__providers_logger__["a" /* CoreLoggerProvider */], __WEBPACK_IMPORTED_MODULE_8__ionic_native_network__["a" /* Network */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_7__providers_chat__["a" /* AddonModChatProvider */], __WEBPACK_IMPORTED_MODULE_2__providers_app__["a" /* CoreAppProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_sites__["a" /* CoreSitesProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ModalController */], __WEBPACK_IMPORTED_MODULE_5__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_6__providers_utils_text__["a" /* CoreTextUtilsProvider */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_4__providers_logger__["a" /* CoreLoggerProvider */], __WEBPACK_IMPORTED_MODULE_9__ionic_native_network__["a" /* Network */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_8__providers_chat__["a" /* AddonModChatProvider */], __WEBPACK_IMPORTED_MODULE_2__providers_app__["a" /* CoreAppProvider */], __WEBPACK_IMPORTED_MODULE_5__providers_sites__["a" /* CoreSitesProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ModalController */], __WEBPACK_IMPORTED_MODULE_6__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_7__providers_utils_text__["a" /* CoreTextUtilsProvider */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_events__["a" /* CoreEventsProvider */]])
     ], AddonModChatChatPage);
     return AddonModChatChatPage;
 }());

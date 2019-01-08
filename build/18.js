@@ -1,6 +1,6 @@
 webpackJsonp([18],{
 
-/***/ 1883:
+/***/ 1862:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,10 +9,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__space_usage__ = __webpack_require__(2008);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__space_usage__ = __webpack_require__(1987);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directives_directives_module__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pipes_pipes_module__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pipes_pipes_module__ = __webpack_require__(67);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,14 +63,14 @@ var CoreSettingsSpaceUsagePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2008:
+/***/ 1987:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CoreSettingsSpaceUsagePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_file__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_app__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_filepool__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_sites__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_utils_text__ = __webpack_require__(11);
@@ -108,8 +108,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Page that displays the space usage settings.
  */
 var CoreSettingsSpaceUsagePage = /** @class */ (function () {
-    function CoreSettingsSpaceUsagePage(fileProvider, filePoolProvider, sitesProvider, textUtils, translate, domUtils) {
-        this.fileProvider = fileProvider;
+    function CoreSettingsSpaceUsagePage(filePoolProvider, sitesProvider, textUtils, translate, domUtils, appProvider) {
         this.filePoolProvider = filePoolProvider;
         this.sitesProvider = sitesProvider;
         this.textUtils = textUtils;
@@ -119,7 +118,6 @@ var CoreSettingsSpaceUsagePage = /** @class */ (function () {
         this.sites = [];
         this.currentSiteId = '';
         this.totalUsage = 0;
-        this.freeSpace = 0;
         this.currentSiteId = this.sitesProvider.getCurrentSiteId();
     }
     /**
@@ -164,35 +162,16 @@ var CoreSettingsSpaceUsagePage = /** @class */ (function () {
         this.totalUsage = total;
     };
     /**
-     * Convenience function to calculate free space in the device.
-     *
-     * @return {Promise<any>} Resolved when done.
-     */
-    CoreSettingsSpaceUsagePage.prototype.calculateFreeSpace = function () {
-        var _this = this;
-        if (this.fileProvider.isAvailable()) {
-            return this.fileProvider.calculateFreeSpace().then(function (freeSpace) {
-                _this.freeSpace = freeSpace;
-            }).catch(function () {
-                _this.freeSpace = 0;
-            });
-        }
-        else {
-            this.freeSpace = 0;
-            return Promise.resolve(null);
-        }
-    };
-    /**
-     * Convenience function to calculate space usage and free space in the device.
+     * Convenience function to calculate space usage.
      *
      * @return {Promise<any>} Resolved when done.
      */
     CoreSettingsSpaceUsagePage.prototype.fetchData = function () {
         var _this = this;
-        return Promise.all([
+        var promises = [
             this.calculateSizeUsage().then(function () { return _this.calculateTotalUsage(); }),
-            this.calculateFreeSpace(),
-        ]);
+        ];
+        return Promise.all(promises);
     };
     /**
      * Refresh the data.
@@ -205,7 +184,7 @@ var CoreSettingsSpaceUsagePage = /** @class */ (function () {
         });
     };
     /**
-     * Convenience function to update site size, along with total usage and free space.
+     * Convenience function to update site size, along with total usage.
      *
      * @param {any} site Site object with space usage.
      * @param {number} newUsage New space usage of the site in bytes.
@@ -214,7 +193,6 @@ var CoreSettingsSpaceUsagePage = /** @class */ (function () {
         var oldUsage = site.spaceUsage;
         site.spaceUsage = newUsage;
         this.totalUsage -= oldUsage - newUsage;
-        this.freeSpace += oldUsage - newUsage;
     };
     /**
      * Deletes files of a site.
@@ -254,11 +232,11 @@ var CoreSettingsSpaceUsagePage = /** @class */ (function () {
     };
     CoreSettingsSpaceUsagePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-settings-space-usage',template:/*ion-inline-start:"C:\github\amApp\src\core\settings\pages\space-usage\space-usage.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'core.settings.spaceusage\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="usageLoaded" (ionRefresh)="refreshData($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-loading [hideUntil]="usageLoaded">\n\n        <ion-item *ngFor="let site of sites" [class.core-primary-item]="site.id == currentSiteId">\n\n            <h2><core-format-text [text]="site.siteName"></core-format-text></h2>\n\n            <p>{{ site.fullName }}</p>\n\n            <p item-end>{{ site.spaceUsage | coreBytesToSize }}</p>\n\n            <button ion-button icon-only clear color="danger" item-end (click)="deleteSiteFiles(site)" [hidden]="!site.spaceUsage > \'0\'" [attr.aria-label]="\'core.settings.deletesitefilestitle\' | translate">\n\n                <ion-icon name="trash"></ion-icon>\n\n            </button>\n\n        </ion-item>\n\n        <ion-item-divider color="light">\n\n            <p>{{ \'core.settings.total\' | translate }}</p>\n\n            <p item-end>{{ totalUsage | coreBytesToSize }}</p>\n\n        </ion-item-divider>\n\n        <ion-item-divider color="light">\n\n            <p>{{ \'core.settings.estimatedfreespace\' | translate }}</p>\n\n            <p item-end>{{ freeSpace | coreBytesToSize }}</p>\n\n        </ion-item-divider>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\core\settings\pages\space-usage\space-usage.html"*/,
+            selector: 'page-core-settings-space-usage',template:/*ion-inline-start:"C:\github\newAC\src\core\settings\pages\space-usage\space-usage.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'core.settings.spaceusage\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="usageLoaded" (ionRefresh)="refreshData($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-loading [hideUntil]="usageLoaded">\n\n        <ion-item *ngFor="let site of sites" [class.core-primary-item]="site.id == currentSiteId">\n\n            <h2><core-format-text [text]="site.siteName"></core-format-text></h2>\n\n            <p>{{ site.fullName }}</p>\n\n            <p item-end>{{ site.spaceUsage | coreBytesToSize }}</p>\n\n            <button ion-button icon-only clear color="danger" item-end (click)="deleteSiteFiles(site)" [hidden]="!site.spaceUsage > \'0\'" [attr.aria-label]="\'core.settings.deletesitefilestitle\' | translate">\n\n                <ion-icon name="trash"></ion-icon>\n\n            </button>\n\n        </ion-item>\n\n        <ion-item-divider color="light">\n\n            <p>{{ \'core.settings.total\' | translate }}</p>\n\n            <p item-end>{{ totalUsage | coreBytesToSize }}</p>\n\n        </ion-item-divider>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\core\settings\pages\space-usage\space-usage.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__providers_file__["a" /* CoreFileProvider */], __WEBPACK_IMPORTED_MODULE_3__providers_filepool__["a" /* CoreFilepoolProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_filepool__["a" /* CoreFilepoolProvider */],
             __WEBPACK_IMPORTED_MODULE_4__providers_sites__["a" /* CoreSitesProvider */], __WEBPACK_IMPORTED_MODULE_5__providers_utils_text__["a" /* CoreTextUtilsProvider */],
-            __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_6__providers_utils_dom__["a" /* CoreDomUtilsProvider */]])
+            __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_6__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_2__providers_app__["a" /* CoreAppProvider */]])
     ], CoreSettingsSpaceUsagePage);
     return CoreSettingsSpaceUsagePage;
 }());

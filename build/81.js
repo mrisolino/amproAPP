@@ -1,6 +1,6 @@
 webpackJsonp([81],{
 
-/***/ 1816:
+/***/ 1796:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,9 +10,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(939);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__discussion__ = __webpack_require__(1937);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(926);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__discussion__ = __webpack_require__(1917);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,26 +63,26 @@ var AddonModForumDiscussionPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1937:
+/***/ 1917:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddonModForumDiscussionPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_network__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_network__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_app__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_events__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_sites__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_utils_dom__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_utils_utils__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_fileuploader_providers_fileuploader__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_split_view_split_view__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_forum__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_offline__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_helper__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_sync__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_utils_utils__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_fileuploader_providers_fileuploader__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_split_view_split_view__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_forum__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_offline__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_helper__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_sync__ = __webpack_require__(193);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -158,6 +158,7 @@ var AddonModForumDiscussionPage = /** @class */ (function () {
         this.refreshIcon = 'spinner';
         this.syncIcon = 'spinner';
         this.discussionStr = '';
+        this.component = __WEBPACK_IMPORTED_MODULE_11__providers_forum__["a" /* AddonModForumProvider */].COMPONENT;
         this.courseId = navParams.get('courseId');
         this.cmId = navParams.get('cmId');
         this.forumId = navParams.get('forumId');
@@ -206,7 +207,7 @@ var AddonModForumDiscussionPage = /** @class */ (function () {
         // Trigger view event, to highlight the current opened discussion in the split view.
         this.eventsProvider.trigger(__WEBPACK_IMPORTED_MODULE_11__providers_forum__["a" /* AddonModForumProvider */].VIEW_DISCUSSION_EVENT, {
             forumId: this.forumId,
-            discussion: this.discussionId,
+            discussion: this.discussionId
         }, this.sitesProvider.getCurrentSiteId());
     };
     /**
@@ -347,6 +348,12 @@ var AddonModForumDiscussionPage = /** @class */ (function () {
                 // // Add log in Moodle and mark unread posts as readed.
                 _this.forumProvider.logDiscussionView(_this.discussionId).catch(function () {
                     // Ignore errors.
+                }).finally(function () {
+                    // Trigger mark read posts.
+                    _this.eventsProvider.trigger(__WEBPACK_IMPORTED_MODULE_11__providers_forum__["a" /* AddonModForumProvider */].MARK_READ_EVENT, {
+                        courseId: _this.courseId,
+                        moduleId: _this.cmId
+                    }, _this.sitesProvider.getCurrentSiteId());
                 });
             }
         });
@@ -406,7 +413,7 @@ var AddonModForumDiscussionPage = /** @class */ (function () {
      */
     AddonModForumDiscussionPage.prototype.refreshPosts = function (sync, showErrors) {
         var _this = this;
-        this.content && this.content.scrollToTop();
+        this.domUtils.scrollToTop(this.content);
         this.refreshIcon = 'spinner';
         this.syncIcon = 'spinner';
         return this.forumProvider.invalidateDiscussionPosts(this.discussionId).catch(function () {
@@ -424,7 +431,7 @@ var AddonModForumDiscussionPage = /** @class */ (function () {
     AddonModForumDiscussionPage.prototype.changeSort = function (type) {
         this.discussionLoaded = false;
         this.sort = type;
-        this.content && this.content.scrollToTop();
+        this.domUtils.scrollToTop(this.content);
         return this.fetchPosts();
     };
     /**
@@ -463,10 +470,10 @@ var AddonModForumDiscussionPage = /** @class */ (function () {
     ], AddonModForumDiscussionPage.prototype, "content", void 0);
     AddonModForumDiscussionPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-mod-forum-discussion',template:/*ion-inline-start:"C:\github\amApp\src\addon\mod\forum\pages\discussion\discussion.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title *ngIf="discussion"><core-format-text [text]="discussion.subject"></core-format-text></ion-title>\n\n        <ion-buttons end>\n\n            <!-- The context menu will be added in here. -->\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<core-navbar-buttons end>\n\n    <core-context-menu>\n\n        <core-context-menu-item [priority]="650" *ngIf="discussionLoaded && !postHasOffline && isOnline" [content]="\'addon.mod_forum.refreshposts\' | translate" (action)="doRefresh(null, $event)" [iconAction]="refreshIcon" [closeOnClick]="false"></core-context-menu-item>\n\n        <core-context-menu-item [priority]="550" *ngIf="discussionLoaded && !isSplitViewOn && postHasOffline && isOnline" [content]="\'core.settings.synchronizenow\' | translate" (action)="doRefresh(null, $event, true)" [iconAction]="syncIcon" [closeOnClick]="false"></core-context-menu-item>\n\n        <core-context-menu-item [hidden]="sort == \'flat-oldest\'" [priority]="500" [content]="\'addon.mod_forum.modeflatoldestfirst\' | translate" (action)="changeSort(\'flat-oldest\')" iconAction="arrow-round-down"></core-context-menu-item>\n\n        <core-context-menu-item [hidden]="sort == \'flat-newest\'" [priority]="450" [content]="\'addon.mod_forum.modeflatnewestfirst\' | translate" (action)="changeSort(\'flat-newest\')" iconAction="arrow-round-up"></core-context-menu-item>\n\n        <core-context-menu-item [hidden]="sort == \'nested\'" [priority]="400" [content]="\'addon.mod_forum.modenested\' | translate" (action)="changeSort(\'nested\')" iconAction="swap"></core-context-menu-item>\n\n    </core-context-menu>\n\n</core-navbar-buttons>\n\n<ion-content>\n\n    <ion-refresher [enabled]="discussionLoaded" (ionRefresh)="doRefresh($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <core-loading [hideUntil]="discussionLoaded">\n\n        <!-- Discussion replies found to be synchronized -->\n\n        <ion-card class="core-warning-card" *ngIf="postHasOffline">\n\n            <ion-icon name="warning"></ion-icon> {{ \'core.hasdatatosync\' | translate:{$a: discussionStr} }}\n\n        </ion-card>\n\n\n\n        <ion-card class="core-warning-card" *ngIf="locked">\n\n            <ion-icon name="warning"></ion-icon> {{ \'addon.mod_forum.discussionlocked\' | translate }}\n\n        </ion-card>\n\n\n\n        <ion-card *ngIf="discussion" margin-bottom>\n\n            <addon-mod-forum-post [post]="discussion" [courseId]="courseId" [discussionId]="discussionId" [component]="component" [componentId]="componentId" [replyData]="replyData" [originalData]="originalData" [defaultSubject]="defaultSubject" [forum]="forum" [trackPosts]="trackPosts" (onPostChange)="postListChanged()"></addon-mod-forum-post>\n\n        </ion-card>\n\n\n\n        <ion-card *ngIf="sort != \'nested\'">\n\n            <ng-container *ngFor="let post of posts; first as first">\n\n                <ion-item-divider color="light" *ngIf="!first"></ion-item-divider>\n\n                <addon-mod-forum-post [post]="post" [courseId]="courseId" [discussionId]="discussionId" [component]="component" [componentId]="componentId" [replyData]="replyData" [originalData]="originalData" [defaultSubject]="defaultSubject" [forum]="forum" [trackPosts]="trackPosts" (onPostChange)="postListChanged()"></addon-mod-forum-post>\n\n            </ng-container>\n\n        </ion-card>\n\n\n\n        <ng-container *ngIf="sort == \'nested\'">\n\n            <ng-container *ngFor="let post of posts">\n\n                <ng-container *ngTemplateOutlet="nestedPosts; context: {post: post}"></ng-container>\n\n            </ng-container>\n\n        </ng-container>\n\n\n\n        <ng-template #nestedPosts let-post="post">\n\n            <ion-card>\n\n                <addon-mod-forum-post [post]="post" [courseId]="courseId" [discussionId]="discussionId" [component]="component" [componentId]="componentId" [replyData]="replyData" [originalData]="originalData" [defaultSubject]="defaultSubject" [forum]="forum" [trackPosts]="trackPosts" (onPostChange)="postListChanged()"></addon-mod-forum-post>\n\n            </ion-card>\n\n            <div padding-left *ngIf="post.children.length && post.children[0].subject">\n\n                <ng-container *ngFor="let child of post.children">\n\n                    <ng-container *ngTemplateOutlet="nestedPosts; context: {post: child}"></ng-container>\n\n                </ng-container>\n\n            </div>\n\n        </ng-template>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\mod\forum\pages\discussion\discussion.html"*/,
+            selector: 'page-addon-mod-forum-discussion',template:/*ion-inline-start:"C:\github\newAC\src\addon\mod\forum\pages\discussion\discussion.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title *ngIf="discussion"><core-format-text [text]="discussion.subject"></core-format-text></ion-title>\n\n        <ion-buttons end>\n\n            <!-- The context menu will be added in here. -->\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<core-navbar-buttons end>\n\n    <core-context-menu>\n\n        <core-context-menu-item [priority]="650" *ngIf="discussionLoaded && !postHasOffline && isOnline" [content]="\'addon.mod_forum.refreshposts\' | translate" (action)="doRefresh(null, $event)" [iconAction]="refreshIcon" [closeOnClick]="false"></core-context-menu-item>\n\n        <core-context-menu-item [priority]="550" *ngIf="discussionLoaded && !isSplitViewOn && postHasOffline && isOnline" [content]="\'core.settings.synchronizenow\' | translate" (action)="doRefresh(null, $event, true)" [iconAction]="syncIcon" [closeOnClick]="false"></core-context-menu-item>\n\n        <core-context-menu-item [hidden]="sort == \'flat-oldest\'" [priority]="500" [content]="\'addon.mod_forum.modeflatoldestfirst\' | translate" (action)="changeSort(\'flat-oldest\')" iconAction="arrow-round-down"></core-context-menu-item>\n\n        <core-context-menu-item [hidden]="sort == \'flat-newest\'" [priority]="450" [content]="\'addon.mod_forum.modeflatnewestfirst\' | translate" (action)="changeSort(\'flat-newest\')" iconAction="arrow-round-up"></core-context-menu-item>\n\n        <core-context-menu-item [hidden]="sort == \'nested\'" [priority]="400" [content]="\'addon.mod_forum.modenested\' | translate" (action)="changeSort(\'nested\')" iconAction="swap"></core-context-menu-item>\n\n    </core-context-menu>\n\n</core-navbar-buttons>\n\n<ion-content>\n\n    <ion-refresher [enabled]="discussionLoaded" (ionRefresh)="doRefresh($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <core-loading [hideUntil]="discussionLoaded">\n\n        <!-- Discussion replies found to be synchronized -->\n\n        <ion-card class="core-warning-card" *ngIf="postHasOffline">\n\n            <ion-icon name="warning"></ion-icon> {{ \'core.hasdatatosync\' | translate:{$a: discussionStr} }}\n\n        </ion-card>\n\n\n\n        <ion-card class="core-warning-card" *ngIf="locked">\n\n            <ion-icon name="warning"></ion-icon> {{ \'addon.mod_forum.discussionlocked\' | translate }}\n\n        </ion-card>\n\n\n\n        <ion-card *ngIf="discussion" margin-bottom class="highlight">\n\n            <addon-mod-forum-post [post]="discussion" [courseId]="courseId" [discussionId]="discussionId" [component]="component" [componentId]="cmId" [replyData]="replyData" [originalData]="originalData" [defaultSubject]="defaultSubject" [forum]="forum" [trackPosts]="trackPosts" (onPostChange)="postListChanged()"></addon-mod-forum-post>\n\n        </ion-card>\n\n\n\n        <ion-card *ngIf="sort != \'nested\'">\n\n            <ng-container *ngFor="let post of posts; first as first">\n\n                <ion-item-divider color="light" *ngIf="!first"></ion-item-divider>\n\n                <addon-mod-forum-post [post]="post" [courseId]="courseId" [discussionId]="discussionId" [component]="component" [componentId]="cmId" [replyData]="replyData" [originalData]="originalData" [defaultSubject]="defaultSubject" [forum]="forum" [trackPosts]="trackPosts" (onPostChange)="postListChanged()"></addon-mod-forum-post>\n\n            </ng-container>\n\n        </ion-card>\n\n\n\n        <ng-container *ngIf="sort == \'nested\'">\n\n            <ng-container *ngFor="let post of posts">\n\n                <ng-container *ngTemplateOutlet="nestedPosts; context: {post: post}"></ng-container>\n\n            </ng-container>\n\n        </ng-container>\n\n\n\n        <ng-template #nestedPosts let-post="post">\n\n            <ion-card>\n\n                <addon-mod-forum-post [post]="post" [courseId]="courseId" [discussionId]="discussionId" [component]="component" [componentId]="cmId" [replyData]="replyData" [originalData]="originalData" [defaultSubject]="defaultSubject" [forum]="forum" [trackPosts]="trackPosts" (onPostChange)="postListChanged()"></addon-mod-forum-post>\n\n            </ion-card>\n\n            <div padding-left *ngIf="post.children.length && post.children[0].subject">\n\n                <ng-container *ngFor="let child of post.children">\n\n                    <ng-container *ngTemplateOutlet="nestedPosts; context: {post: child}"></ng-container>\n\n                </ng-container>\n\n            </div>\n\n        </ng-template>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\mod\forum\pages\discussion\discussion.html"*/,
         }),
         __param(14, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Optional */])()),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_2__ionic_native_network__["a" /* Network */],
             __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgZone */],
             __WEBPACK_IMPORTED_MODULE_4__providers_app__["a" /* CoreAppProvider */],

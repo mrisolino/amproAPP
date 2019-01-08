@@ -1,6 +1,6 @@
 webpackJsonp([28],{
 
-/***/ 1873:
+/***/ 1853:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,9 +8,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoreLoginSiteErrorPageModule", function() { return CoreLoginSiteErrorPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__site_error__ = __webpack_require__(1998);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__site_error__ = __webpack_require__(1978);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +57,7 @@ var CoreLoginSiteErrorPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1998:
+/***/ 1978:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -105,9 +105,9 @@ var CoreLoginSiteErrorPage = /** @class */ (function () {
     };
     CoreLoginSiteErrorPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-login-site-error',template:/*ion-inline-start:"C:\github\amApp\src\core\login\pages\site-error\site-error.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'core.error\' | translate }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n    <h3>{{ \'core.whoops\' | translate }}</h3>\n\n    <p>{{ \'core.login.problemconnectingerror\' | translate }}</p>\n\n    <p padding>{{siteUrl}}</p>\n\n    <p>{{ \'core.login.problemconnectingerrorcontinue\' | translate }}</p>\n\n    <button ion-button block (click)="closeModal()">{{ \'core.tryagain\' | translate }}</button>\n\n    <h3>{{ \'core.login.stillcantconnect\' | translate }}</h3>\n\n    <p>{{ \'core.login.contactyouradministrator\' | translate }}</p>\n\n    <p *ngIf="issue">\n\n        {{ \'core.login.contactyouradministratorissue\' | translate:{$a: \'\'} }}\n\n    </p>\n\n    <p *ngIf="issue">\n\n        <core-format-text [text]="issue"></core-format-text>\n\n    </p>\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"C:\github\amApp\src\core\login\pages\site-error\site-error.html"*/,
+            selector: 'page-core-login-site-error',template:/*ion-inline-start:"C:\github\newAC\src\core\login\pages\site-error\site-error.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'core.error\' | translate }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n    <h3>{{ \'core.whoops\' | translate }}</h3>\n\n    <p>{{ \'core.login.problemconnectingerror\' | translate }}</p>\n\n    <p padding>{{siteUrl}}</p>\n\n    <p>{{ \'core.login.problemconnectingerrorcontinue\' | translate }}</p>\n\n    <button ion-button block (click)="closeModal()">{{ \'core.tryagain\' | translate }}</button>\n\n    <h3>{{ \'core.login.stillcantconnect\' | translate }}</h3>\n\n    <p>{{ \'core.login.contactyouradministrator\' | translate }}</p>\n\n    <p *ngIf="issue">\n\n        {{ \'core.login.contactyouradministratorissue\' | translate:{$a: \'\'} }}\n\n    </p>\n\n    <p *ngIf="issue">\n\n        <core-format-text [text]="issue"></core-format-text>\n\n    </p>\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"C:\github\newAC\src\core\login\pages\site-error\site-error.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["B" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["D" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */]])
     ], CoreLoginSiteErrorPage);
     return CoreLoginSiteErrorPage;
 }());

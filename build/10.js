@@ -1,6 +1,6 @@
 webpackJsonp([10],{
 
-/***/ 1891:
+/***/ 1871:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,8 +9,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(393);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__participants__ = __webpack_require__(2016);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__participants__ = __webpack_require__(1996);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,17 +36,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var CoreUserParticipantsPageModule = /** @class */ (function () {
     function CoreUserParticipantsPageModule() {
     }
     CoreUserParticipantsPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_4__participants__["a" /* CoreUserParticipantsPage */],
+                __WEBPACK_IMPORTED_MODULE_5__participants__["a" /* CoreUserParticipantsPage */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_3__components_components_module__["a" /* CoreUserComponentsModule */],
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_4__participants__["a" /* CoreUserParticipantsPage */]),
+                __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__["a" /* CoreDirectivesModule */],
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_5__participants__["a" /* CoreUserParticipantsPage */]),
                 __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["b" /* TranslateModule */].forChild()
             ],
         })
@@ -57,7 +60,7 @@ var CoreUserParticipantsPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2016:
+/***/ 1996:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -97,9 +100,9 @@ var CoreUserParticipantsPage = /** @class */ (function () {
     }
     CoreUserParticipantsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-user-participants',template:/*ion-inline-start:"C:\github\amApp\src\core\user\pages\participants\participants.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'core.user.participants\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<core-user-participants [courseId]="courseId"></core-user-participants>'/*ion-inline-end:"C:\github\amApp\src\core\user\pages\participants\participants.html"*/,
+            selector: 'page-core-user-participants',template:/*ion-inline-start:"C:\github\newAC\src\core\user\pages\participants\participants.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'core.user.participants\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<core-user-participants [courseId]="courseId"></core-user-participants>'/*ion-inline-end:"C:\github\newAC\src\core\user\pages\participants\participants.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */]])
     ], CoreUserParticipantsPage);
     return CoreUserParticipantsPage;
 }());

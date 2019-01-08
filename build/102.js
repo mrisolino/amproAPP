@@ -1,6 +1,6 @@
 webpackJsonp([102],{
 
-/***/ 1793:
+/***/ 1774:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,10 +9,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__discussion__ = __webpack_require__(1914);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__discussion__ = __webpack_require__(1895);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directives_directives_module__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pipes_pipes_module__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pipes_pipes_module__ = __webpack_require__(67);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +63,7 @@ var AddonMessagesDiscussionPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1914:
+/***/ 1895:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73,17 +73,17 @@ var AddonMessagesDiscussionPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_events__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_sites__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_messages__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_sync__ = __webpack_require__(399);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_messages__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_sync__ = __webpack_require__(391);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_user_providers_user__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_utils_dom__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_utils_utils__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_utils_utils__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_logger__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_app__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__classes_animations__ = __webpack_require__(943);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ts_md5_dist_md5__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__classes_animations__ = __webpack_require__(930);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ts_md5_dist_md5__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ts_md5_dist_md5___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_ts_md5_dist_md5__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_moment__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_moment__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_moment__);
 // (C) Copyright 2015 Martin Dougiamas
 //
@@ -248,6 +248,10 @@ var AddonMessagesDiscussionPage = /** @class */ (function () {
                 _this.loaded = true;
             });
         });
+        // Recalculate footer position when keyboard is shown or hidden.
+        this.keyboardObserver = this.eventsProvider.on(__WEBPACK_IMPORTED_MODULE_3__providers_events__["a" /* CoreEventsProvider */].KEYBOARD_CHANGE, function (kbHeight) {
+            _this.content.resize();
+        });
     };
     /**
      * Runs when the page has fully entered and is now the active page.
@@ -292,7 +296,8 @@ var AddonMessagesDiscussionPage = /** @class */ (function () {
                 return Promise.resolve();
             }
             // Check if we are at the bottom to scroll it after render.
-            _this.scrollBottom = _this.content.scrollHeight - _this.content.scrollTop === _this.content.contentHeight;
+            _this.scrollBottom = _this.domUtils.getScrollHeight(_this.content) - _this.domUtils.getScrollTop(_this.content) ===
+                _this.domUtils.getContentHeight(_this.content);
             if (_this.messagesBeingSent > 0) {
                 // Ignore polling due to a race condition.
                 return Promise.reject(null);
@@ -602,13 +607,13 @@ var AddonMessagesDiscussionPage = /** @class */ (function () {
         // Wait for new content height to be calculated.
         setTimeout(function () {
             // Visible content size changed, maintain the bottom position.
-            if (!_this.viewDestroyed && _this.content && _this.content.contentHeight != _this.oldContentHeight) {
+            if (!_this.viewDestroyed && _this.content && _this.domUtils.getContentHeight(_this.content) != _this.oldContentHeight) {
                 if (!top) {
                     top = _this.content.getContentDimensions().scrollTop;
                 }
-                top += _this.oldContentHeight - _this.content.contentHeight;
-                _this.oldContentHeight = _this.content.contentHeight;
-                _this.content.scrollTo(0, top, 0);
+                top += _this.oldContentHeight - _this.domUtils.getContentHeight(_this.content);
+                _this.oldContentHeight = _this.domUtils.getContentHeight(_this.content);
+                _this.domUtils.scrollTo(_this.content, 0, top, 0);
             }
         });
     };
@@ -622,7 +627,7 @@ var AddonMessagesDiscussionPage = /** @class */ (function () {
             // Need a timeout to leave time to the view to be rendered.
             setTimeout(function () {
                 if (!_this.viewDestroyed) {
-                    _this.content.scrollToBottom(0);
+                    _this.domUtils.scrollToBottom(_this.content, 0);
                 }
             });
             this.scrollBottom = false;
@@ -717,6 +722,7 @@ var AddonMessagesDiscussionPage = /** @class */ (function () {
         // Unset again, just in case.
         this.unsetPolling();
         this.syncObserver && this.syncObserver.off();
+        this.keyboardObserver && this.keyboardObserver.off();
         this.viewDestroyed = true;
     };
     __decorate([
@@ -725,11 +731,11 @@ var AddonMessagesDiscussionPage = /** @class */ (function () {
     ], AddonMessagesDiscussionPage.prototype, "content", void 0);
     AddonMessagesDiscussionPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-messages-discussion',template:/*ion-inline-start:"C:\github\amApp\src\addon\messages\pages\discussion\discussion.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title><core-format-text [text]="title"></core-format-text></ion-title>\n\n        <ion-buttons end></ion-buttons>\n\n    </ion-navbar>\n\n    <core-navbar-buttons end>\n\n        <button ion-button icon-only clear="true" (click)="toggleDelete()" [hidden]="!canDelete">\n\n            <ion-icon name="trash"></ion-icon>\n\n        </button>\n\n        <a [hidden]="!showProfileLink" core-user-link [userId]="userId" [attr.aria-label]=" \'core.user.viewprofile\' | translate">\n\n            <img class="button core-bar-button-image" [src]="profileLink" core-external-content onError="this.src=\'assets/img/user-avatar.png\'">\n\n        </a>\n\n    </core-navbar-buttons>\n\n</ion-header>\n\n<ion-content>\n\n    <core-loading [hideUntil]="loaded">\n\n        <!-- Load previous messages. -->\n\n        <ion-infinite-scroll [enabled]="canLoadMore" (ionInfinite)="loadPrevious($event)" position="top">\n\n           <ion-infinite-scroll-content></ion-infinite-scroll-content>\n\n        </ion-infinite-scroll>\n\n        <ion-list class="addon-messages-discussion-container" [attr.aria-live]="polite">\n\n            <ng-container *ngFor="let message of messages; index as index; last as last">\n\n                <ion-chip *ngIf="showDate(message, messages[index - 1])" class="addon-messages-date" color="light">\n\n                    <ion-label>{{ message.timecreated | coreFormatDate: "LL" }}</ion-label>\n\n                </ion-chip>\n\n\n\n                <ion-chip class="addon-messages-unreadfrom" *ngIf="message.unreadFrom" color="light">\n\n                    <ion-label>{{ \'addon.messages.newmessages\' | translate:{$a: title} }}</ion-label>\n\n                    <ion-icon name="arrow-round-down"></ion-icon>\n\n                </ion-chip>\n\n\n\n                <ion-item text-wrap (longPress)="copyMessage(message.smallmessage)" class="addon-message" [class.addon-message-mine]="message.useridfrom == currentUserId" [@coreSlideInOut]="message.useridfrom == currentUserId ? \'\' : \'fromLeft\'">\n\n                    <!-- Some messages have <p> and some others don\'t. Add a <p> so they all have same styles. -->\n\n                    <p class="addon-message-text">\n\n                        <core-format-text (afterRender)="last && scrollToBottom()" [text]="message.text"></core-format-text>\n\n                    </p>\n\n                    <ion-note *ngIf="!message.pending">\n\n                        {{ message.timecreated | coreFormatDate: "dftimedate" }}\n\n                    </ion-note>\n\n                    <ion-note *ngIf="message.pending"><ion-icon name="time"></ion-icon></ion-note>\n\n\n\n                    <button ion-button icon-only clear="true" *ngIf="!message.sending && showDelete" (click)="deleteMessage(message, index)" class="addon-messages-delete-button" [@coreSlideInOut]="\'fromRight\'" [attr.aria-label]=" \'addon.messages.deletemessage\' | translate">\n\n                        <ion-icon name="trash" color="danger"></ion-icon>\n\n                    </button>\n\n                </ion-item>\n\n            </ng-container>\n\n        </ion-list>\n\n        <core-empty-box *ngIf="!messages || messages.length <= 0" icon="chatbubbles" [message]="\'addon.messages.nomessages\' | translate"></core-empty-box>\n\n    </core-loading>\n\n</ion-content>\n\n<ion-footer color="light" class="footer-adjustable">\n\n    <ion-toolbar color="light" position="bottom">\n\n        <core-send-message-form (onSubmit)="sendMessage($event)" [showKeyboard]="showKeyboard" [placeholder]="\'addon.messages.newmessage\' | translate" (onResize)="resizeContent()"></core-send-message-form>\n\n    </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\messages\pages\discussion\discussion.html"*/,
+            selector: 'page-addon-messages-discussion',template:/*ion-inline-start:"C:\github\newAC\src\addon\messages\pages\discussion\discussion.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title><core-format-text [text]="title"></core-format-text></ion-title>\n\n        <ion-buttons end></ion-buttons>\n\n    </ion-navbar>\n\n    <core-navbar-buttons end>\n\n        <button ion-button icon-only clear="true" (click)="toggleDelete()" [hidden]="!canDelete">\n\n            <ion-icon name="trash"></ion-icon>\n\n        </button>\n\n        <a [hidden]="!showProfileLink" core-user-link [userId]="userId" [attr.aria-label]=" \'core.user.viewprofile\' | translate">\n\n            <img class="button core-bar-button-image" [src]="profileLink" core-external-content onError="this.src=\'assets/img/user-avatar.png\'">\n\n        </a>\n\n    </core-navbar-buttons>\n\n</ion-header>\n\n<ion-content class="has-footer">\n\n    <core-loading [hideUntil]="loaded">\n\n        <!-- Load previous messages. -->\n\n        <ion-infinite-scroll [enabled]="canLoadMore" (ionInfinite)="loadPrevious($event)" position="top">\n\n           <ion-infinite-scroll-content></ion-infinite-scroll-content>\n\n        </ion-infinite-scroll>\n\n        <ion-list class="addon-messages-discussion-container" [attr.aria-live]="polite">\n\n            <ng-container *ngFor="let message of messages; index as index; last as last">\n\n                <ion-chip *ngIf="showDate(message, messages[index - 1])" class="addon-messages-date" color="light">\n\n                    <ion-label>{{ message.timecreated | coreFormatDate: "LL" }}</ion-label>\n\n                </ion-chip>\n\n\n\n                <ion-chip class="addon-messages-unreadfrom" *ngIf="message.unreadFrom" color="light">\n\n                    <ion-label>{{ \'addon.messages.newmessages\' | translate:{$a: title} }}</ion-label>\n\n                    <ion-icon name="arrow-round-down"></ion-icon>\n\n                </ion-chip>\n\n\n\n                <ion-item text-wrap (longPress)="copyMessage(message.smallmessage)" class="addon-message" [class.addon-message-mine]="message.useridfrom == currentUserId" [@coreSlideInOut]="message.useridfrom == currentUserId ? \'\' : \'fromLeft\'">\n\n                    <!-- Some messages have <p> and some others don\'t. Add a <p> so they all have same styles. -->\n\n                    <p class="addon-message-text">\n\n                        <core-format-text (afterRender)="last && scrollToBottom()" [text]="message.text"></core-format-text>\n\n                    </p>\n\n                    <ion-note *ngIf="!message.pending">\n\n                        {{ message.timecreated | coreFormatDate: "dftimedate" }}\n\n                    </ion-note>\n\n                    <ion-note *ngIf="message.pending"><ion-icon name="time"></ion-icon></ion-note>\n\n\n\n                    <button ion-button icon-only clear="true" *ngIf="!message.sending && showDelete" (click)="deleteMessage(message, index)" class="addon-messages-delete-button" [@coreSlideInOut]="\'fromRight\'" [attr.aria-label]=" \'addon.messages.deletemessage\' | translate">\n\n                        <ion-icon name="trash" color="danger"></ion-icon>\n\n                    </button>\n\n                </ion-item>\n\n            </ng-container>\n\n        </ion-list>\n\n        <core-empty-box *ngIf="!messages || messages.length <= 0" icon="chatbubbles" [message]="\'addon.messages.nomessages\' | translate"></core-empty-box>\n\n    </core-loading>\n\n</ion-content>\n\n<ion-footer color="light" class="footer-adjustable">\n\n    <ion-toolbar color="light" position="bottom">\n\n        <core-send-message-form (onSubmit)="sendMessage($event)" [showKeyboard]="showKeyboard" [placeholder]="\'addon.messages.newmessage\' | translate" (onResize)="resizeContent()"></core-send-message-form>\n\n    </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\messages\pages\discussion\discussion.html"*/,
             animations: [__WEBPACK_IMPORTED_MODULE_12__classes_animations__["b" /* coreSlideInOut */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_events__["a" /* CoreEventsProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_sites__["a" /* CoreSitesProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_7__core_user_providers_user__["a" /* CoreUserProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* NavController */], __WEBPACK_IMPORTED_MODULE_6__providers_sync__["a" /* AddonMessagesSyncProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_events__["a" /* CoreEventsProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_sites__["a" /* CoreSitesProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_7__core_user_providers_user__["a" /* CoreUserProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */], __WEBPACK_IMPORTED_MODULE_6__providers_sync__["a" /* AddonMessagesSyncProvider */],
             __WEBPACK_IMPORTED_MODULE_8__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_5__providers_messages__["a" /* AddonMessagesProvider */], __WEBPACK_IMPORTED_MODULE_10__providers_logger__["a" /* CoreLoggerProvider */],
             __WEBPACK_IMPORTED_MODULE_9__providers_utils_utils__["a" /* CoreUtilsProvider */], __WEBPACK_IMPORTED_MODULE_11__providers_app__["a" /* CoreAppProvider */], __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["c" /* TranslateService */]])
     ], AddonMessagesDiscussionPage);

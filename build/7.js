@@ -1,6 +1,6 @@
 webpackJsonp([7],{
 
-/***/ 1894:
+/***/ 1874:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,8 +9,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__image__ = __webpack_require__(2019);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__image__ = __webpack_require__(1999);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +57,7 @@ var CoreViewerImagePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2019:
+/***/ 1999:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -109,9 +109,9 @@ var CoreViewerImagePage = /** @class */ (function () {
     };
     CoreViewerImagePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-viewer-image',template:/*ion-inline-start:"C:\github\amApp\src\core\viewer\pages\image\image.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ title }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n    <img [src]="image" alt="{{ title }}" core-external-content [component]="component" [componentId]="componentId">\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\core\viewer\pages\image\image.html"*/,
+            selector: 'page-core-viewer-image',template:/*ion-inline-start:"C:\github\newAC\src\core\viewer\pages\image\image.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ title }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-scroll zoom="true" maxZoom="2" class="core-zoom-pane" scrollX="true" scrollY="true">\n\n        <img [src]="image" [alt]="title" core-external-content [component]="component" [componentId]="componentId">\n\n    </ion-scroll>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\core\viewer\pages\image\image.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["B" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["D" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
     ], CoreViewerImagePage);
     return CoreViewerImagePage;
 }());

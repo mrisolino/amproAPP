@@ -1,6 +1,6 @@
 webpackJsonp([14],{
 
-/***/ 1887:
+/***/ 1867:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,8 +9,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index__ = __webpack_require__(2012);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(937);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__index__ = __webpack_require__(1992);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(923);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,17 +36,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var CoreSiteHomeIndexPageModule = /** @class */ (function () {
     function CoreSiteHomeIndexPageModule() {
     }
     CoreSiteHomeIndexPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_3__index__["a" /* CoreSiteHomeIndexPage */],
+                __WEBPACK_IMPORTED_MODULE_4__index__["a" /* CoreSiteHomeIndexPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_4__components_components_module__["a" /* CoreSiteHomeComponentsModule */],
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__index__["a" /* CoreSiteHomeIndexPage */]),
+                __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__["a" /* CoreDirectivesModule */],
+                __WEBPACK_IMPORTED_MODULE_5__components_components_module__["a" /* CoreSiteHomeComponentsModule */],
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_4__index__["a" /* CoreSiteHomeIndexPage */]),
                 __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["b" /* TranslateModule */].forChild()
             ]
         })
@@ -57,7 +60,7 @@ var CoreSiteHomeIndexPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2012:
+/***/ 1992:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66,6 +69,7 @@ var CoreSiteHomeIndexPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_sites__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_course_providers_helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_index_index__ = __webpack_require__(924);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -92,6 +96,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
  * Page that displays site home index.
  */
@@ -102,11 +107,15 @@ var CoreSiteHomeIndexPage = /** @class */ (function () {
             courseHelper.openModule(navCtrl, module, sitesProvider.getCurrentSite().getSiteHomeId());
         }
     }
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_9" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_4__components_index_index__["a" /* CoreSiteHomeIndexComponent */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_4__components_index_index__["a" /* CoreSiteHomeIndexComponent */])
+    ], CoreSiteHomeIndexPage.prototype, "siteHomeComponent", void 0);
     CoreSiteHomeIndexPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-sitehome-index',template:/*ion-inline-start:"C:\github\amApp\src\core\sitehome\pages\index\index.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'core.sitehome.sitehome\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<core-sitehome-index></core-sitehome-index>\n\n'/*ion-inline-end:"C:\github\amApp\src\core\sitehome\pages\index\index.html"*/,
+            selector: 'page-core-sitehome-index',template:/*ion-inline-start:"C:\github\newAC\src\core\sitehome\pages\index\index.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'core.sitehome.sitehome\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="siteHomeComponent && siteHomeComponent.dataLoaded" (ionRefresh)="siteHomeComponent.doRefresh($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-sitehome-index></core-sitehome-index>\n\n</ion-content>'/*ion-inline-end:"C:\github\newAC\src\core\sitehome\pages\index\index.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__core_course_providers_helper__["a" /* CoreCourseHelperProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__core_course_providers_helper__["a" /* CoreCourseHelperProvider */],
             __WEBPACK_IMPORTED_MODULE_2__providers_sites__["a" /* CoreSitesProvider */]])
     ], CoreSiteHomeIndexPage);
     return CoreSiteHomeIndexPage;

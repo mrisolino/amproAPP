@@ -1,17 +1,17 @@
 webpackJsonp([53],{
 
-/***/ 1845:
+/***/ 1825:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddonModWorkshopPhaseSelectorPageModule", function() { return AddonModWorkshopPhaseSelectorPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddonModWorkshopPhaseInfoPageModule", function() { return AddonModWorkshopPhaseInfoPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__phase__ = __webpack_require__(1968);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_compile_components_compile_html_compile_html_module__ = __webpack_require__(391);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__phase__ = __webpack_require__(1948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_compile_components_compile_html_compile_html_module__ = __webpack_require__(383);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,36 +37,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var AddonModWorkshopPhaseSelectorPageModule = /** @class */ (function () {
-    function AddonModWorkshopPhaseSelectorPageModule() {
+var AddonModWorkshopPhaseInfoPageModule = /** @class */ (function () {
+    function AddonModWorkshopPhaseInfoPageModule() {
     }
-    AddonModWorkshopPhaseSelectorPageModule = __decorate([
+    AddonModWorkshopPhaseInfoPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_4__phase__["a" /* AddonModWorkshopPhaseSelectorPage */],
+                __WEBPACK_IMPORTED_MODULE_4__phase__["a" /* AddonModWorkshopPhaseInfoPage */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__["a" /* CoreDirectivesModule */],
                 __WEBPACK_IMPORTED_MODULE_5__core_compile_components_compile_html_compile_html_module__["a" /* CoreCompileHtmlComponentModule */],
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_4__phase__["a" /* AddonModWorkshopPhaseSelectorPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_4__phase__["a" /* AddonModWorkshopPhaseInfoPage */]),
                 __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["b" /* TranslateModule */].forChild()
             ],
         })
-    ], AddonModWorkshopPhaseSelectorPageModule);
-    return AddonModWorkshopPhaseSelectorPageModule;
+    ], AddonModWorkshopPhaseInfoPageModule);
+    return AddonModWorkshopPhaseInfoPageModule;
 }());
 
 //# sourceMappingURL=phase.module.js.map
 
 /***/ }),
 
-/***/ 1968:
+/***/ 1948:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddonModWorkshopPhaseSelectorPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddonModWorkshopPhaseInfoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_utils_utils__ = __webpack_require__(5);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,40 +92,58 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 /**
- * Page that displays the phase selector modal.
+ * Page that displays the phase info modal.
  */
-var AddonModWorkshopPhaseSelectorPage = /** @class */ (function () {
-    function AddonModWorkshopPhaseSelectorPage(params, viewCtrl) {
+var AddonModWorkshopPhaseInfoPage = /** @class */ (function () {
+    function AddonModWorkshopPhaseInfoPage(params, viewCtrl, utils) {
         this.viewCtrl = viewCtrl;
-        this.selected = params.get('selected');
-        this.original = this.selected;
+        this.utils = utils;
         this.phases = params.get('phases');
         this.workshopPhase = params.get('workshopPhase');
+        var externalUrl = params.get('externalUrl');
+        // Treat phases.
+        for (var x in this.phases) {
+            this.phases[x].tasks.forEach(function (task) {
+                if (!task.link && (task.code == 'examples' || task.code == 'prepareexamples')) {
+                    // Add links to manage examples.
+                    task.link = externalUrl;
+                }
+            });
+            var action = this.phases[x].actions.find(function (action) {
+                return action.url && action.type == 'switchphase';
+            });
+            this.phases[x].switchUrl = action ? action.url : '';
+        }
     }
     /**
      * Close modal.
      */
-    AddonModWorkshopPhaseSelectorPage.prototype.closeModal = function () {
+    AddonModWorkshopPhaseInfoPage.prototype.closeModal = function () {
         this.viewCtrl.dismiss();
     };
     /**
-     * Select phase.
+     * Open task.
+     *
+     * @param {any} task Task to be done.
      */
-    AddonModWorkshopPhaseSelectorPage.prototype.switchPhase = function () {
-        // This is a quick hack to avoid the first switch phase call done just when opening the modal.
-        if (this.original != this.selected) {
-            this.viewCtrl.dismiss(this.selected);
+    AddonModWorkshopPhaseInfoPage.prototype.runTask = function (task) {
+        if (task.code == 'submit') {
+            // This will close the modal and go to the submit.
+            this.viewCtrl.dismiss(true);
         }
-        this.original = null;
+        else if (task.link) {
+            this.utils.openInBrowser(task.link);
+        }
     };
-    AddonModWorkshopPhaseSelectorPage = __decorate([
+    AddonModWorkshopPhaseInfoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-mod-workshop-phase-selector',template:/*ion-inline-start:"C:\github\amApp\src\addon\mod\workshop\pages\phase\phase.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'addon.mod_workshop.selectphase\' | translate }}</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-list radio-group [(ngModel)]="selected" (ionChange)="switchPhase()">\n\n        <ng-container *ngFor="let phase of phases">\n\n            <ion-item *ngIf="workshopPhase >= phase.code || phase.tasks.length || phase.switchUrl">\n\n                <ion-label>{{ phase.title }}\n\n                    <p text-wrap *ngIf="workshopPhase == phase.code">{{ \'addon.mod_workshop.userplancurrentphase\' | translate }}</p>\n\n                </ion-label>\n\n                <ion-radio [value]="phase.code"></ion-radio>\n\n            </ion-item>\n\n            <ion-item *ngIf="!(workshopPhase >= phase.code || phase.tasks.length || phase.switchUrl)">\n\n                {{ phase.title }}\n\n            </ion-item>\n\n        </ng-container>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\mod\workshop\pages\phase\phase.html"*/,
+            selector: 'page-addon-mod-workshop-phase-info',template:/*ion-inline-start:"C:\github\newAC\src\addon\mod\workshop\pages\phase\phase.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'addon.mod_workshop.userplan\' | translate }}</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-list>\n\n        <ng-container *ngFor="let phase of phases">\n\n            <ion-item-divider color="light" [class.core-workshop-phase-selected]="workshopPhase == phase.code">\n\n                <h2>{{ phase.title }}</h2>\n\n                <p text-wrap *ngIf="workshopPhase == phase.code">{{ \'addon.mod_workshop.userplancurrentphase\' | translate }}</p>\n\n            </ion-item-divider>\n\n            <a ion-item text-wrap *ngIf="phase.switchUrl" [href]="phase.switchUrl" detail-none>\n\n                <ion-icon item-start name="swap"></ion-icon>\n\n                {{ \'addon.mod_workshop.switchphase\' + phase.code | translate }}\n\n                <ion-icon item-end name="open"></ion-icon>\n\n            </a>\n\n            <a ion-item text-wrap *ngFor="let task of phase.tasks" [class.item-dimmed]="phase.code != workshopPhase" (click)="runTask(task)" detail-none>\n\n                <ion-icon item-start name="radio-button-off" *ngIf="task.completed == null"></ion-icon>\n\n                <ion-icon item-start name="close-circle" color="danger" *ngIf="task.completed == \'\'"></ion-icon>\n\n                <ion-icon item-start name="information-circle" color="info" *ngIf="task.completed == \'info\'"></ion-icon>\n\n                <ion-icon item-start name="checkmark-circle" color="success" *ngIf="task.completed == \'1\'"></ion-icon>\n\n\n\n                <h2 text-wrap>{{task.title}}</h2>\n\n                <p *ngIf="task.details"><core-format-text [text]="task.details"></core-format-text></p>\n\n                <ion-icon item-end *ngIf="task.link && task.code != \'submit\'" name="open"></ion-icon>\n\n            </a>\n\n        </ng-container>\n\n    </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\mod\workshop\pages\phase\phase.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["B" /* ViewController */]])
-    ], AddonModWorkshopPhaseSelectorPage);
-    return AddonModWorkshopPhaseSelectorPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["D" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__providers_utils_utils__["a" /* CoreUtilsProvider */]])
+    ], AddonModWorkshopPhaseInfoPage);
+    return AddonModWorkshopPhaseInfoPage;
 }());
 
 //# sourceMappingURL=phase.js.map

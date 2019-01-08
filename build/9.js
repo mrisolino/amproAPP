@@ -1,6 +1,6 @@
 webpackJsonp([9],{
 
-/***/ 1892:
+/***/ 1872:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,8 +9,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile__ = __webpack_require__(2017);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile__ = __webpack_require__(1997);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(16);
 // (C) Copyright 2015 Martin Dougiamas
 //
@@ -60,7 +60,7 @@ var CoreUserProfilePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2017:
+/***/ 1997:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68,16 +68,16 @@ var CoreUserProfilePageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_helper__ = __webpack_require__(936);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_helper__ = __webpack_require__(922);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_utils_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core_courses_providers_courses__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core_courses_providers_courses__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_events__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_sites__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_utils_mimetype__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__core_fileuploader_providers_helper__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_utils_mimetype__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__core_fileuploader_providers_helper__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_user_delegate__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_split_view_split_view__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_split_view_split_view__ = __webpack_require__(104);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -136,7 +136,6 @@ var CoreUserProfilePage = /** @class */ (function () {
         this.svComponent = svComponent;
         this.userLoaded = false;
         this.isLoadingHandlers = false;
-        this.user = {};
         this.isDeleted = false;
         this.canChangeProfilePicture = false;
         this.actionHandlers = [];
@@ -153,7 +152,7 @@ var CoreUserProfilePage = /** @class */ (function () {
                 this.site.wsAvailable('core_user_update_picture') &&
                 !this.userProvider.isUpdatePictureDisabledInSite(this.site);
         this.obsProfileRefreshed = eventsProvider.on(__WEBPACK_IMPORTED_MODULE_2__providers_user__["a" /* CoreUserProvider */].PROFILE_REFRESHED, function (data) {
-            if (typeof data.user != 'undefined') {
+            if (_this.user && typeof data.user != 'undefined') {
                 _this.user.email = data.user.email;
                 _this.user.address = _this.userHelper.formatAddress('', data.user.city, data.user.country);
             }
@@ -200,10 +199,13 @@ var CoreUserProfilePage = /** @class */ (function () {
                             break;
                     }
                 });
-                _this.isLoadingHandlers = !_this.userDelegate.areHandlersLoaded();
+                _this.isLoadingHandlers = !_this.userDelegate.areHandlersLoaded(user.id);
             });
         }).catch(function (error) {
-            _this.domUtils.showErrorModalDefault(error, 'core.user.errorloaduser', true);
+            // Error is null for deleted users, do not show the modal.
+            if (error) {
+                _this.domUtils.showErrorModal(error);
+            }
         });
     };
     /**
@@ -277,18 +279,17 @@ var CoreUserProfilePage = /** @class */ (function () {
     CoreUserProfilePage.prototype.ngOnDestroy = function () {
         this.subscription && this.subscription.unsubscribe();
         this.obsProfileRefreshed && this.obsProfileRefreshed.off();
-        this.userDelegate.clearUserHandlers();
     };
     CoreUserProfilePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-user-profile',template:/*ion-inline-start:"C:\github\amApp\src\core\user\pages\profile\profile.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title><core-format-text [text]="title"></core-format-text></ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="userLoaded" (ionRefresh)="refreshUser($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-loading [hideUntil]="userLoaded">\n\n        <ion-list *ngIf="user && !isDeleted">\n\n            <ion-item text-center>\n\n                <div class="item-avatar-center">\n\n                    <img class="avatar" [src]="user.profileimageurl" core-external-content alt="{{ \'core.pictureof\' | translate:{$a: user.fullname} }}" role="presentation" onError="this.src=\'assets/img/user-avatar.png\'">\n\n                    <ion-icon name="create" class="core-icon-foreground" *ngIf="canChangeProfilePicture" (click)="changeProfilePicture()"></ion-icon>\n\n                </div>\n\n                <h2><core-format-text [text]="user.fullname"></core-format-text></h2>\n\n                <p><core-format-text *ngIf="user.address" [text]="user.address"></core-format-text></p>\n\n                <p *ngIf="user.roles">\n\n                    <strong>{{ \'core.user.roles\' | translate}}</strong>{{\'core.labelsep\' | translate}}\n\n                    <core-format-text [text]="user.roles"></core-format-text>\n\n                </p>\n\n            </ion-item>\n\n\n\n            <ion-grid class="core-user-communication-handlers" *ngIf="(communicationHandlers && communicationHandlers.length) || isLoadingHandlers">\n\n                <ion-row no-padding justify-content-between *ngIf="communicationHandlers && communicationHandlers.length">\n\n                    <ion-col align-self-center *ngFor="let comHandler of communicationHandlers" text-center>\n\n                        <a (click)="handlerClicked($event, comHandler)" [ngClass]="[\'core-user-profile-handler\', comHandler.class]" title="{{comHandler.title | translate}}" tappable>\n\n                            <core-icon [name]="comHandler.icon"></core-icon>\n\n                            <p>{{comHandler.title | translate}}</p>\n\n                        </a>\n\n                    </ion-col>\n\n                </ion-row>\n\n                <ion-row no-padding>\n\n                    <ion-col text-center class="core-loading-handlers" *ngIf="isLoadingHandlers">\n\n                        <ion-spinner></ion-spinner>\n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-grid>\n\n\n\n            <a ion-item text-wrap class="core-user-profile-handler" (click)="openUserDetails()" title="{{ \'core.user.details\' | translate }}">\n\n                <ion-icon name="person" item-start></ion-icon>\n\n                <h2>{{ \'core.user.details\' | translate }}</h2>\n\n            </a>\n\n            <ion-item text-center class="core-loading-handlers" *ngIf="isLoadingHandlers">\n\n                <ion-spinner></ion-spinner>\n\n            </ion-item>\n\n\n\n            <a *ngFor="let npHandler of newPageHandlers" ion-item text-wrap [ngClass]="[\'core-user-profile-handler\', npHandler.class]" (click)="handlerClicked($event, npHandler)" [hidden]="npHandler.hidden" title="{{ npHandler.title | translate }}">\n\n                <core-icon *ngIf="npHandler.icon" [name]="npHandler.icon" item-start></core-icon>\n\n                <h2>{{ npHandler.title | translate }}</h2>\n\n            </a>\n\n\n\n            <ion-item *ngIf="actionHandlers && actionHandlers.length">\n\n                <button *ngFor="let actHandler of actionHandlers" ion-button block outline [ngClass]="[\'core-user-profile-handler\', actHandler.class]" (click)="handlerClicked($event, actHandler)" [hidden]="actHandler.hidden" title="{{ actHandler.title | translate }}" icon-start [disabled]="actHandler.spinner">\n\n                    <core-icon *ngIf="actHandler.icon" [name]="actHandler.icon" start></core-icon>\n\n                    <span>{{ actHandler.title | translate }}</span>\n\n                    <ion-spinner *ngIf="actHandler.spinner"></ion-spinner>\n\n                </button>\n\n            </ion-item>\n\n        </ion-list>\n\n        <core-empty-box *ngIf="!user && !isDeleted" icon="person" [message]=" \'core.user.detailsnotavailable\' | translate"></core-empty-box>\n\n\n\n        <core-empty-box *ngIf="isDeleted" icon="person" [message]="\'core.userdeleted\' | translate"></core-empty-box>\n\n    </core-loading>\n\n</ion-content>'/*ion-inline-end:"C:\github\amApp\src\core\user\pages\profile\profile.html"*/,
+            selector: 'page-core-user-profile',template:/*ion-inline-start:"C:\github\newAC\src\core\user\pages\profile\profile.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title><core-format-text [text]="title"></core-format-text></ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="userLoaded" (ionRefresh)="refreshUser($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-loading [hideUntil]="userLoaded">\n\n        <ion-list *ngIf="user && !isDeleted">\n\n            <ion-item text-center>\n\n                <div class="item-avatar-center">\n\n                    <img class="avatar" [src]="user.profileimageurl" core-external-content alt="{{ \'core.pictureof\' | translate:{$a: user.fullname} }}" role="presentation" onError="this.src=\'assets/img/user-avatar.png\'">\n\n                    <ion-icon name="create" class="core-icon-foreground" *ngIf="canChangeProfilePicture" (click)="changeProfilePicture()"></ion-icon>\n\n                </div>\n\n                <h2><core-format-text [text]="user.fullname"></core-format-text></h2>\n\n                <p><core-format-text *ngIf="user.address" [text]="user.address"></core-format-text></p>\n\n                <p *ngIf="user.roles">\n\n                    <strong>{{ \'core.user.roles\' | translate}}</strong>{{\'core.labelsep\' | translate}}\n\n                    <core-format-text [text]="user.roles"></core-format-text>\n\n                </p>\n\n            </ion-item>\n\n\n\n            <ion-grid class="core-user-communication-handlers" *ngIf="(communicationHandlers && communicationHandlers.length) || isLoadingHandlers">\n\n                <ion-row no-padding justify-content-between *ngIf="communicationHandlers && communicationHandlers.length">\n\n                    <ion-col align-self-center *ngFor="let comHandler of communicationHandlers" text-center>\n\n                        <a (click)="handlerClicked($event, comHandler)" [ngClass]="[\'core-user-profile-handler\', comHandler.class]" title="{{comHandler.title | translate}}" tappable>\n\n                            <core-icon [name]="comHandler.icon"></core-icon>\n\n                            <p>{{comHandler.title | translate}}</p>\n\n                        </a>\n\n                    </ion-col>\n\n                </ion-row>\n\n                <ion-row no-padding>\n\n                    <ion-col text-center class="core-loading-handlers" *ngIf="isLoadingHandlers">\n\n                        <ion-spinner></ion-spinner>\n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-grid>\n\n\n\n            <a ion-item text-wrap class="core-user-profile-handler" (click)="openUserDetails()" title="{{ \'core.user.details\' | translate }}">\n\n                <ion-icon name="person" item-start></ion-icon>\n\n                <h2>{{ \'core.user.details\' | translate }}</h2>\n\n            </a>\n\n            <ion-item text-center class="core-loading-handlers" *ngIf="isLoadingHandlers">\n\n                <ion-spinner></ion-spinner>\n\n            </ion-item>\n\n\n\n            <a *ngFor="let npHandler of newPageHandlers" ion-item text-wrap [ngClass]="[\'core-user-profile-handler\', npHandler.class]" (click)="handlerClicked($event, npHandler)" [hidden]="npHandler.hidden" title="{{ npHandler.title | translate }}">\n\n                <core-icon *ngIf="npHandler.icon" [name]="npHandler.icon" item-start></core-icon>\n\n                <h2>{{ npHandler.title | translate }}</h2>\n\n            </a>\n\n\n\n            <ion-item *ngIf="actionHandlers && actionHandlers.length">\n\n                <button *ngFor="let actHandler of actionHandlers" ion-button block outline [ngClass]="[\'core-user-profile-handler\', actHandler.class]" (click)="handlerClicked($event, actHandler)" [hidden]="actHandler.hidden" title="{{ actHandler.title | translate }}" icon-start [disabled]="actHandler.spinner">\n\n                    <core-icon *ngIf="actHandler.icon" [name]="actHandler.icon" start></core-icon>\n\n                    <span>{{ actHandler.title | translate }}</span>\n\n                    <ion-spinner *ngIf="actHandler.spinner"></ion-spinner>\n\n                </button>\n\n            </ion-item>\n\n        </ion-list>\n\n        <core-empty-box *ngIf="!user && !isDeleted" icon="person" [message]=" \'core.user.detailsnotavailable\' | translate"></core-empty-box>\n\n\n\n        <core-empty-box *ngIf="isDeleted" icon="person" [message]="\'core.userdeleted\' | translate"></core-empty-box>\n\n    </core-loading>\n\n</ion-content>'/*ion-inline-end:"C:\github\newAC\src\core\user\pages\profile\profile.html"*/,
         }),
         __param(12, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Optional */])()),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_user__["a" /* CoreUserProvider */], __WEBPACK_IMPORTED_MODULE_3__providers_helper__["a" /* CoreUserHelperProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_user__["a" /* CoreUserProvider */], __WEBPACK_IMPORTED_MODULE_3__providers_helper__["a" /* CoreUserHelperProvider */],
             __WEBPACK_IMPORTED_MODULE_4__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_7__providers_events__["a" /* CoreEventsProvider */],
             __WEBPACK_IMPORTED_MODULE_6__core_courses_providers_courses__["a" /* CoreCoursesProvider */], __WEBPACK_IMPORTED_MODULE_8__providers_sites__["a" /* CoreSitesProvider */],
             __WEBPACK_IMPORTED_MODULE_9__providers_utils_mimetype__["a" /* CoreMimetypeUtilsProvider */], __WEBPACK_IMPORTED_MODULE_10__core_fileuploader_providers_helper__["a" /* CoreFileUploaderHelperProvider */],
-            __WEBPACK_IMPORTED_MODULE_11__providers_user_delegate__["a" /* CoreUserDelegate */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_11__providers_user_delegate__["a" /* CoreUserDelegate */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_12__components_split_view_split_view__["a" /* CoreSplitViewComponent */]])
     ], CoreUserProfilePage);
     return CoreUserProfilePage;

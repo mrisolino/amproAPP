@@ -1,6 +1,6 @@
 webpackJsonp([25],{
 
-/***/ 1876:
+/***/ 1857:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,9 +8,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoreLoginSitePageModule", function() { return CoreLoginSitePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__site__ = __webpack_require__(2001);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__site__ = __webpack_require__(1982);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +57,7 @@ var CoreLoginSitePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2001:
+/***/ 1982:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67,8 +67,8 @@ var CoreLoginSitePageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_app__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_sites__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_utils_dom__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__configconstants__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_helper__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__configconstants__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_helper__ = __webpack_require__(79);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_forms__ = __webpack_require__(20);
 // (C) Copyright 2015 Martin Dougiamas
 //
@@ -193,11 +193,11 @@ var CoreLoginSitePage = /** @class */ (function () {
     };
     CoreLoginSitePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-login-site',template:/*ion-inline-start:"C:\github\amApp\src\core\login\pages\site\site.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'core.login.connecttomoodle\' | translate }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="showHelp()" [attr.aria-label]="\'core.help\' | translate">\n\n                <ion-icon name="help-circle"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content class="core-center-view">\n\n    <div class="box">\n\n        <div text-center padding>\n\n            <img src="assets/img/login_logo.jpg" class="avatar-full login-logo" role="presentation">\n\n        </div>\n\n        <form ion-list no-lines [formGroup]="siteForm" (ngSubmit)="connect(siteForm.value.siteUrl)">\n\n            <!-- Form to input the site URL if there are no fixed sites. -->\n\n            <div *ngIf="!fixedSites">\n\n                <p padding>{{ \'core.login.newsitedescription\' | translate }}</p>\n\n                <ion-item>\n\n                    <ion-input type="url" name="url" placeholder="{{ \'core.login.siteaddress\' | translate }}" formControlName="siteUrl" [core-auto-focus]="showKeyboard"></ion-input>\n\n                </ion-item>\n\n            </div>\n\n\n\n            <!-- Pick the site from a list of fixed sites. -->\n\n            <div *ngIf="fixedSites" text-wrap>\n\n                <!-- Display them using a select. -->\n\n                <ion-item *ngIf="!displayAsButtons" margin-vertical>\n\n                    <ion-label stacked for="siteSelect">{{ \'core.login.selectsite\' | translate }}</ion-label>\n\n                    <ion-select formControlName="siteUrl" name="url" placeholder="{{ \'core.login.siteaddress\' | translate }}" interface="popover">\n\n                        <ion-option *ngFor="let site of fixedSites" [value]="site.url">{{site.name}}</ion-option>\n\n                    </ion-select>\n\n                </ion-item>\n\n\n\n                <!-- Display them using buttons. -->\n\n                <div *ngIf="displayAsButtons">\n\n                    <p class="padding no-padding-bottom">{{ \'core.login.selectsite\' | translate }}</p>\n\n                    <a *ngFor="let site of fixedSites" ion-button block (click)="connect(site.url)" title="{{site.name}}" margin-bottom>{{site.name}}</a>\n\n                </div>\n\n            </div>\n\n\n\n            <button *ngIf="!fixedSites || !displayAsButtons" ion-button block [disabled]="!siteForm.valid">{{ \'core.login.connect\' | translate }}</button>\n\n        </form>\n\n    </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\core\login\pages\site\site.html"*/,
+            selector: 'page-core-login-site',template:/*ion-inline-start:"C:\github\newAC\src\core\login\pages\site\site.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'core.login.connecttomoodle\' | translate }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="showHelp()" [attr.aria-label]="\'core.help\' | translate">\n\n                <ion-icon name="help-circle"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content class="core-center-view">\n\n    <div class="box">\n\n        <div text-center padding>\n\n            <img src="assets/img/login_logo.png" class="avatar-full login-logo" role="presentation">\n\n        </div>\n\n        <form ion-list [formGroup]="siteForm" (ngSubmit)="connect(siteForm.value.siteUrl)">\n\n            <!-- Form to input the site URL if there are no fixed sites. -->\n\n            <div *ngIf="!fixedSites">\n\n                <p padding>{{ \'core.login.newsitedescription\' | translate }}</p>\n\n                <ion-item>\n\n                    <ion-input type="url" name="url" placeholder="{{ \'core.login.siteaddress\' | translate }}" formControlName="siteUrl" [core-auto-focus]="showKeyboard"></ion-input>\n\n                </ion-item>\n\n            </div>\n\n\n\n            <!-- Pick the site from a list of fixed sites. -->\n\n            <div *ngIf="fixedSites" text-wrap>\n\n                <!-- Display them using a select. -->\n\n                <ion-item *ngIf="!displayAsButtons" margin-vertical>\n\n                    <ion-label stacked for="siteSelect">{{ \'core.login.selectsite\' | translate }}</ion-label>\n\n                    <ion-select formControlName="siteUrl" name="url" placeholder="{{ \'core.login.siteaddress\' | translate }}" interface="popover">\n\n                        <ion-option *ngFor="let site of fixedSites" [value]="site.url">{{site.name}}</ion-option>\n\n                    </ion-select>\n\n                </ion-item>\n\n\n\n                <!-- Display them using buttons. -->\n\n                <div *ngIf="displayAsButtons">\n\n                    <p class="padding no-padding-bottom">{{ \'core.login.selectsite\' | translate }}</p>\n\n                    <a *ngFor="let site of fixedSites" ion-button block (click)="connect(site.url)" title="{{site.name}}" margin-bottom>{{site.name}}</a>\n\n                </div>\n\n            </div>\n\n\n\n            <button *ngIf="!fixedSites || !displayAsButtons" ion-button block [disabled]="!siteForm.valid">{{ \'core.login.connect\' | translate }}</button>\n\n        </form>\n\n    </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\core\login\pages\site\site.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* NavController */], __WEBPACK_IMPORTED_MODULE_7__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_2__providers_app__["a" /* CoreAppProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */], __WEBPACK_IMPORTED_MODULE_7__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_2__providers_app__["a" /* CoreAppProvider */],
             __WEBPACK_IMPORTED_MODULE_3__providers_sites__["a" /* CoreSitesProvider */], __WEBPACK_IMPORTED_MODULE_6__providers_helper__["a" /* CoreLoginHelperProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ModalController */], __WEBPACK_IMPORTED_MODULE_4__providers_utils_dom__["a" /* CoreDomUtilsProvider */]])
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ModalController */], __WEBPACK_IMPORTED_MODULE_4__providers_utils_dom__["a" /* CoreDomUtilsProvider */]])
     ], CoreLoginSitePage);
     return CoreLoginSitePage;
 }());

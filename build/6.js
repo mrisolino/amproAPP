@@ -1,6 +1,6 @@
 webpackJsonp([6],{
 
-/***/ 1895:
+/***/ 1875:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,9 +9,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__text__ = __webpack_require__(2020);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__text__ = __webpack_require__(2000);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directives_directives_module__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directives_directives_module__ = __webpack_require__(14);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +63,7 @@ var CoreViewerTextPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2020:
+/***/ 2000:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -116,9 +116,9 @@ var CoreViewerTextPage = /** @class */ (function () {
     };
     CoreViewerTextPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-viewer-text',template:/*ion-inline-start:"C:\github\amApp\src\core\viewer\pages\text\text.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ title }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n    <core-format-text [text]="content" [component]="component" [componentId]="componentId"></core-format-text>\n\n\n\n    <ion-card *ngIf="files && files.length">\n\n        <core-file *ngFor="let file of files" [file]="file" [component]="component" [componentId]="componentId"></core-file>\n\n    </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\core\viewer\pages\text\text.html"*/,
+            selector: 'page-core-viewer-text',template:/*ion-inline-start:"C:\github\newAC\src\core\viewer\pages\text\text.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ title }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n    <core-format-text [text]="content" [component]="component" [componentId]="componentId"></core-format-text>\n\n\n\n    <ion-card *ngIf="files && files.length">\n\n        <core-file *ngFor="let file of files" [file]="file" [component]="component" [componentId]="componentId"></core-file>\n\n    </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\core\viewer\pages\text\text.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["B" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_utils_text__["a" /* CoreTextUtilsProvider */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["D" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_utils_text__["a" /* CoreTextUtilsProvider */]])
     ], CoreViewerTextPage);
     return CoreViewerTextPage;
 }());

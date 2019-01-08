@@ -1,6 +1,6 @@
 webpackJsonp([12],{
 
-/***/ 1889:
+/***/ 1869:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,8 +9,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugin_page__ = __webpack_require__(2014);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(942);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__plugin_page__ = __webpack_require__(1994);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(929);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,6 +36,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 /**
  * Module to lazy load the page.
  */
@@ -44,11 +46,12 @@ var CoreSitePluginsPluginPageModule = /** @class */ (function () {
     CoreSitePluginsPluginPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_3__plugin_page__["a" /* CoreSitePluginsPluginPage */]
+                __WEBPACK_IMPORTED_MODULE_4__plugin_page__["a" /* CoreSitePluginsPluginPage */]
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_4__components_components_module__["a" /* CoreSitePluginsComponentsModule */],
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_3__plugin_page__["a" /* CoreSitePluginsPluginPage */]),
+                __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__["a" /* CoreDirectivesModule */],
+                __WEBPACK_IMPORTED_MODULE_5__components_components_module__["a" /* CoreSitePluginsComponentsModule */],
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_4__plugin_page__["a" /* CoreSitePluginsPluginPage */]),
                 __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["b" /* TranslateModule */].forChild()
             ]
         })
@@ -60,7 +63,7 @@ var CoreSitePluginsPluginPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2014:
+/***/ 1994:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -103,6 +106,7 @@ var CoreSitePluginsPluginPage = /** @class */ (function () {
         this.method = params.get('method');
         this.args = params.get('args');
         this.initResult = params.get('initResult');
+        this.jsData = params.get('jsData');
     }
     /**
      * Refresh the data.
@@ -120,9 +124,9 @@ var CoreSitePluginsPluginPage = /** @class */ (function () {
     ], CoreSitePluginsPluginPage.prototype, "content", void 0);
     CoreSitePluginsPluginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-site-plugins-plugin',template:/*ion-inline-start:"C:\github\amApp\src\core\siteplugins\pages\plugin-page\plugin-page.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ title | translate }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <!-- If the site plugin defines some buttons using core-nav-buttons, they will be added here. -->\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="content && content.dataLoaded" (ionRefresh)="refreshData($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-site-plugins-plugin-content [component]="component" [method]="method" [args]="args" [initResult]="initResult"></core-site-plugins-plugin-content>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\core\siteplugins\pages\plugin-page\plugin-page.html"*/,
+            selector: 'page-core-site-plugins-plugin',template:/*ion-inline-start:"C:\github\newAC\src\core\siteplugins\pages\plugin-page\plugin-page.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ title | translate }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <!-- If the site plugin defines some buttons using core-nav-buttons, they will be added here. -->\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="content && content.dataLoaded" (ionRefresh)="refreshData($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-site-plugins-plugin-content [component]="component" [method]="method" [args]="args" [initResult]="initResult" [data]="jsData"></core-site-plugins-plugin-content>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\core\siteplugins\pages\plugin-page\plugin-page.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */]])
     ], CoreSitePluginsPluginPage);
     return CoreSitePluginsPluginPage;
 }());

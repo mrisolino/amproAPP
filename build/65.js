@@ -1,6 +1,6 @@
 webpackJsonp([65],{
 
-/***/ 1831:
+/***/ 1811:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,8 +8,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddonModQuizNavigationModalPageModule", function() { return AddonModQuizNavigationModalPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navigation_modal__ = __webpack_require__(1952);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navigation_modal__ = __webpack_require__(1932);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +34,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AddonModQuizNavigationModalPageModule = /** @class */ (function () {
     function AddonModQuizNavigationModalPageModule() {
     }
@@ -42,6 +44,7 @@ var AddonModQuizNavigationModalPageModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__navigation_modal__["a" /* AddonModQuizNavigationModalPage */]
             ],
             imports: [
+                __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__["a" /* CoreDirectivesModule */],
                 __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__navigation_modal__["a" /* AddonModQuizNavigationModalPage */]),
                 __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */].forChild()
             ]
@@ -54,7 +57,7 @@ var AddonModQuizNavigationModalPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1952:
+/***/ 1932:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -119,9 +122,9 @@ var AddonModQuizNavigationModalPage = /** @class */ (function () {
     };
     AddonModQuizNavigationModalPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-mod-quiz-navigation-modal',template:/*ion-inline-start:"C:\github\amApp\src\addon\mod\quiz\pages\navigation-modal\navigation-modal.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'addon.mod_quiz.quiznavigation\' | translate }}</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content class="addon-mod_quiz-navigation-modal">\n\n    <nav>\n\n        <ion-list>\n\n            <!-- In player, show button to finish attempt. -->\n\n            <a ion-item text-wrap *ngIf="!isReview" (click)="loadPage(-1)">\n\n                {{ \'addon.mod_quiz.finishattemptdots\' | translate }}\n\n            </a>\n\n\n\n            <!-- In review we can toggle between all questions in same page or one page at a time. -->\n\n            <a ion-item text-wrap *ngIf="isReview && pageInstance.numPages > 1" (click)="switchMode()">\n\n                <span *ngIf="!pageInstance.showAll">{{ \'addon.mod_quiz.showall\' | translate }}</span>\n\n                <span *ngIf="pageInstance.showAll">{{ \'addon.mod_quiz.showeachpage\' | translate }}</span>\n\n            </a>\n\n            <a ion-item text-wrap *ngFor="let question of pageInstance.navigation" class="{{question.stateClass}}" [ngClass]=\'{"addon-mod_quiz-selected": !pageInstance.showSummary && pageInstance.attempt.currentpage == question.page}\' (click)="loadPage(question.page, question.slot)">\n\n                <span *ngIf="question.number">{{ \'core.question.questionno\' | translate:{$a: question.number} }}</span>\n\n                <span *ngIf="!question.number">{{ \'core.question.information\' | translate }}</span>\n\n            </a>\n\n\n\n            <!-- In player, show button to finish attempt. -->\n\n            <a ion-item text-wrap *ngIf="!isReview" (click)="loadPage(-1)">\n\n                {{ \'addon.mod_quiz.finishattemptdots\' | translate }}\n\n            </a>\n\n\n\n            <!-- In review we can toggle between all questions in same page or one page at a time. -->\n\n            <a ion-item text-wrap *ngIf="isReview && pageInstance.numPages > 1" (click)="switchMode()">\n\n                <span *ngIf="!pageInstance.showAll">{{ \'addon.mod_quiz.showall\' | translate }}</span>\n\n                <span *ngIf="pageInstance.showAll">{{ \'addon.mod_quiz.showeachpage\' | translate }}</span>\n\n            </a>\n\n        </ion-list>\n\n    </nav>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\mod\quiz\pages\navigation-modal\navigation-modal.html"*/,
+            selector: 'page-addon-mod-quiz-navigation-modal',template:/*ion-inline-start:"C:\github\newAC\src\addon\mod\quiz\pages\navigation-modal\navigation-modal.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'addon.mod_quiz.quiznavigation\' | translate }}</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content class="addon-mod_quiz-navigation-modal">\n\n    <nav>\n\n        <ion-list>\n\n            <!-- In player, show button to finish attempt. -->\n\n            <a ion-item text-wrap *ngIf="!isReview" (click)="loadPage(-1)">\n\n                {{ \'addon.mod_quiz.finishattemptdots\' | translate }}\n\n            </a>\n\n\n\n            <!-- In review we can toggle between all questions in same page or one page at a time. -->\n\n            <a ion-item text-wrap *ngIf="isReview && pageInstance.numPages > 1" (click)="switchMode()">\n\n                <span *ngIf="!pageInstance.showAll">{{ \'addon.mod_quiz.showall\' | translate }}</span>\n\n                <span *ngIf="pageInstance.showAll">{{ \'addon.mod_quiz.showeachpage\' | translate }}</span>\n\n            </a>\n\n            <a ion-item text-wrap *ngFor="let question of pageInstance.navigation" class="{{question.stateClass}}" [ngClass]=\'{"addon-mod_quiz-selected": !pageInstance.showSummary && pageInstance.attempt.currentpage == question.page}\' (click)="loadPage(question.page, question.slot)">\n\n                <span *ngIf="question.number">{{ \'core.question.questionno\' | translate:{$a: question.number} }}</span>\n\n                <span *ngIf="!question.number">{{ \'core.question.information\' | translate }}</span>\n\n            </a>\n\n\n\n            <!-- In player, show button to finish attempt. -->\n\n            <a ion-item text-wrap *ngIf="!isReview" (click)="loadPage(-1)">\n\n                {{ \'addon.mod_quiz.finishattemptdots\' | translate }}\n\n            </a>\n\n\n\n            <!-- In review we can toggle between all questions in same page or one page at a time. -->\n\n            <a ion-item text-wrap *ngIf="isReview && pageInstance.numPages > 1" (click)="switchMode()">\n\n                <span *ngIf="!pageInstance.showAll">{{ \'addon.mod_quiz.showall\' | translate }}</span>\n\n                <span *ngIf="pageInstance.showAll">{{ \'addon.mod_quiz.showeachpage\' | translate }}</span>\n\n            </a>\n\n        </ion-list>\n\n    </nav>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\mod\quiz\pages\navigation-modal\navigation-modal.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["B" /* ViewController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["D" /* ViewController */]])
     ], AddonModQuizNavigationModalPage);
     return AddonModQuizNavigationModalPage;
 }());

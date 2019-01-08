@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 1848:
+/***/ 1828:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,10 +10,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_components_module__ = __webpack_require__(1972);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__list__ = __webpack_require__(1974);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_components_module__ = __webpack_require__(1952);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__list__ = __webpack_require__(1954);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -66,7 +66,7 @@ var AddonNotificationsListPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1972:
+/***/ 1952:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -75,7 +75,7 @@ var AddonNotificationsListPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_actions__ = __webpack_require__(1973);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_actions__ = __webpack_require__(1953);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -126,7 +126,7 @@ var AddonNotificationsComponentsModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1973:
+/***/ 1953:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -184,7 +184,7 @@ var AddonNotificationsActionsComponent = /** @class */ (function () {
     ], AddonNotificationsActionsComponent.prototype, "courseId", void 0);
     AddonNotificationsActionsComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'addon-notifications-actions',template:/*ion-inline-start:"C:\github\amApp\src\addon\notifications\components\actions\addon-notifications-actions.html"*/'<ion-row *ngIf="actions && actions.length > 0">\n\n    <ion-col *ngFor="let action of actions">\n\n        <button ion-button icon-left clear small (click)="action.action()">\n\n            <ion-icon name="{{action.icon}}"></ion-icon>\n\n            {{ action.message | translate }}\n\n        </button>\n\n    </ion-col>\n\n</ion-row>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\notifications\components\actions\addon-notifications-actions.html"*/,
+            selector: 'addon-notifications-actions',template:/*ion-inline-start:"C:\github\newAC\src\addon\notifications\components\actions\addon-notifications-actions.html"*/'<ion-row *ngIf="actions && actions.length > 0" justify-content-around>\n\n    <ion-col *ngFor="let action of actions">\n\n        <button ion-button icon-left clear small block (click)="action.action()">\n\n            <ion-icon name="{{action.icon}}"></ion-icon>\n\n            {{ action.message | translate }}\n\n        </button>\n\n    </ion-col>\n\n</ion-row>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\notifications\components\actions\addon-notifications-actions.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__core_contentlinks_providers_delegate__["a" /* CoreContentLinksDelegate */]])
     ], AddonNotificationsActionsComponent);
@@ -195,7 +195,7 @@ var AddonNotificationsActionsComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1974:
+/***/ 1954:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -206,9 +206,9 @@ var AddonNotificationsActionsComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_utils_text__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_events__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_sites__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils_utils__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_notifications__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addon_pushnotifications_providers_delegate__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils_utils__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_notifications__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addon_pushnotifications_providers_delegate__ = __webpack_require__(146);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -255,6 +255,8 @@ var AddonNotificationsListPage = /** @class */ (function () {
         this.notifications = [];
         this.notificationsLoaded = false;
         this.canLoadMore = false;
+        this.canMarkAllNotificationsAsRead = false;
+        this.loadingMarkAllNotificationsAsRead = false;
         this.readCount = 0;
         this.unreadCount = 0;
     }
@@ -288,7 +290,7 @@ var AddonNotificationsListPage = /** @class */ (function () {
         }
         var limit = __WEBPACK_IMPORTED_MODULE_7__providers_notifications__["a" /* AddonNotificationsProvider */].LIST_LIMIT;
         return this.notificationsProvider.getUnreadNotifications(this.unreadCount, limit).then(function (unread) {
-            var promise;
+            var promises = [];
             unread.forEach(_this.formatText.bind(_this));
             /* Don't add the unread notifications to this.notifications yet. If there are no unread notifications
                that causes that the "There are no notifications" message is shown in pull to refresh. */
@@ -296,7 +298,7 @@ var AddonNotificationsListPage = /** @class */ (function () {
             if (unread.length < limit) {
                 // Limit not reached. Get read notifications until reach the limit.
                 var readLimit_1 = limit - unread.length;
-                promise = _this.notificationsProvider.getReadNotifications(_this.readCount, readLimit_1).then(function (read) {
+                promises.push(_this.notificationsProvider.getReadNotifications(_this.readCount, readLimit_1).then(function (read) {
                     read.forEach(_this.formatText.bind(_this));
                     _this.readCount += read.length;
                     if (refresh) {
@@ -311,10 +313,9 @@ var AddonNotificationsListPage = /** @class */ (function () {
                         _this.domUtils.showErrorModalDefault(error, 'addon.notifications.errorgetnotifications', true);
                         _this.canLoadMore = false; // Set to false to prevent infinite calls with infinite-loading.
                     }
-                });
+                }));
             }
             else {
-                promise = Promise.resolve();
                 if (refresh) {
                     _this.notifications = unread;
                 }
@@ -323,7 +324,7 @@ var AddonNotificationsListPage = /** @class */ (function () {
                 }
                 _this.canLoadMore = true;
             }
-            return promise.then(function () {
+            return Promise.all(promises).then(function () {
                 // Mark retrieved notifications as read if they are not.
                 _this.markNotificationsAsRead(unread);
             });
@@ -333,23 +334,57 @@ var AddonNotificationsListPage = /** @class */ (function () {
         });
     };
     /**
+     * Mark all notifications as read.
+     */
+    AddonNotificationsListPage.prototype.markAllNotificationsAsRead = function () {
+        var _this = this;
+        this.loadingMarkAllNotificationsAsRead = true;
+        this.notificationsProvider.markAllNotificationsAsRead().catch(function () {
+            // Omit failure.
+        }).finally(function () {
+            var siteId = _this.sitesProvider.getCurrentSiteId();
+            _this.eventsProvider.trigger(__WEBPACK_IMPORTED_MODULE_7__providers_notifications__["a" /* AddonNotificationsProvider */].READ_CHANGED_EVENT, null, siteId);
+            _this.notificationsProvider.getUnreadNotificationsCount().then(function (unread) {
+                _this.canMarkAllNotificationsAsRead = unread > 0;
+                _this.loadingMarkAllNotificationsAsRead = false;
+            });
+        });
+    };
+    /**
      * Mark notifications as read.
      *
      * @param {any[]} notifications Array of notification objects.
      */
     AddonNotificationsListPage.prototype.markNotificationsAsRead = function (notifications) {
         var _this = this;
+        var promise;
         if (notifications.length > 0) {
             var promises = notifications.map(function (notification) {
                 return _this.notificationsProvider.markNotificationRead(notification.id);
             });
-            Promise.all(promises).finally(function () {
+            promise = Promise.all(promises).catch(function () {
+                // Ignore errors.
+            }).finally(function () {
                 _this.notificationsProvider.invalidateNotificationsList().finally(function () {
                     var siteId = _this.sitesProvider.getCurrentSiteId();
                     _this.eventsProvider.trigger(__WEBPACK_IMPORTED_MODULE_7__providers_notifications__["a" /* AddonNotificationsProvider */].READ_CHANGED_EVENT, null, siteId);
                 });
             });
         }
+        else {
+            promise = Promise.resolve();
+        }
+        promise.finally(function () {
+            // Check if mark all notifications as read is enabled and there are some to read.
+            if (_this.notificationsProvider.isMarkAllNotificationsAsReadEnabled()) {
+                _this.loadingMarkAllNotificationsAsRead = true;
+                return _this.notificationsProvider.getUnreadNotificationsCount().then(function (unread) {
+                    _this.canMarkAllNotificationsAsRead = unread > 0;
+                    _this.loadingMarkAllNotificationsAsRead = false;
+                });
+            }
+            _this.canMarkAllNotificationsAsRead = false;
+        });
     };
     /**
      * Refresh notifications.
@@ -394,9 +429,9 @@ var AddonNotificationsListPage = /** @class */ (function () {
     };
     AddonNotificationsListPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-notifications-list',template:/*ion-inline-start:"C:\github\amApp\src\addon\notifications\pages\list\list.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'addon.notifications.notifications\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="notificationsLoaded" (ionRefresh)="refreshNotifications($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-loading [hideUntil]="notificationsLoaded">\n\n        <ion-card *ngFor="let notification of notifications">\n\n            <ion-item>\n\n                <ion-avatar item-start core-user-link [userId]="notification.useridfrom" [courseId]="notification.courseid">\n\n                    <img [src]="notification.profileimageurlfrom || \'assets/img/user-avatar.png\'" core-external-content [alt]="\'core.pictureof\' | translate:{$a: notification.userfromfullname}" role="presentation">\n\n                </ion-avatar>\n\n                <h2>{{notification.userfromfullname}}</h2>\n\n                <div item-end *ngIf="!notification.timeread"><ion-icon name="record" color="primary"></ion-icon></div>\n\n                <p>{{notification.timecreated | coreDateDayOrTime}}</p>\n\n            </ion-item>\n\n            <ion-item text-wrap>\n\n                <p><core-format-text [text]="notification.mobiletext | coreCreateLinks"></core-format-text></p>\n\n            </ion-item>\n\n            <addon-notifications-actions [contextUrl]="notification.contexturl" [courseId]="notification.courseid"></addon-notifications-actions>\n\n        </ion-card>\n\n        <core-empty-box *ngIf="!notifications || notifications.length <= 0" icon="notifications" [message]="\'addon.notifications.therearentnotificationsyet\' | translate"></core-empty-box>\n\n        <ion-infinite-scroll [enabled]="canLoadMore" (ionInfinite)="loadMoreNotifications($event)">\n\n            <ion-infinite-scroll-content></ion-infinite-scroll-content>\n\n        </ion-infinite-scroll>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\notifications\pages\list\list.html"*/,
+            selector: 'page-addon-notifications-list',template:/*ion-inline-start:"C:\github\newAC\src\addon\notifications\pages\list\list.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'addon.notifications.notifications\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="notificationsLoaded" (ionRefresh)="refreshNotifications($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-loading [hideUntil]="notificationsLoaded">\n\n        <div padding *ngIf="canMarkAllNotificationsAsRead">\n\n            <button ion-button block (click)="markAllNotificationsAsRead()" color="light" icon-start *ngIf="!loadingMarkAllNotificationsAsRead">\n\n                <core-icon name="fa-check"></core-icon>\n\n                {{ \'addon.notifications.markallread\' | translate }}\n\n            </button>\n\n            <button ion-button block color="light" icon-start *ngIf="loadingMarkAllNotificationsAsRead">\n\n                <ion-spinner></ion-spinner>\n\n            </button>\n\n        </div>\n\n        <ion-card *ngFor="let notification of notifications">\n\n            <ion-item>\n\n                <ion-avatar item-start core-user-link [userId]="notification.useridfrom" [courseId]="notification.courseid">\n\n                    <img [src]="notification.profileimageurlfrom || \'assets/img/user-avatar.png\'" core-external-content [alt]="\'core.pictureof\' | translate:{$a: notification.userfromfullname}" role="presentation">\n\n                </ion-avatar>\n\n                <h2>{{notification.userfromfullname}}</h2>\n\n                <div item-end *ngIf="!notification.timeread"><core-icon name="fa-circle" color="primary"></core-icon></div>\n\n                <p>{{notification.timecreated | coreDateDayOrTime}}</p>\n\n            </ion-item>\n\n            <ion-item text-wrap>\n\n                <p><core-format-text [text]="notification.mobiletext | coreCreateLinks"></core-format-text></p>\n\n            </ion-item>\n\n            <addon-notifications-actions [contextUrl]="notification.contexturl" [courseId]="notification.courseid"></addon-notifications-actions>\n\n        </ion-card>\n\n        <core-empty-box *ngIf="!notifications || notifications.length <= 0" icon="notifications" [message]="\'addon.notifications.therearentnotificationsyet\' | translate"></core-empty-box>\n\n        <ion-infinite-scroll [enabled]="canLoadMore" (ionInfinite)="loadMoreNotifications($event)">\n\n            <ion-infinite-scroll-content></ion-infinite-scroll-content>\n\n        </ion-infinite-scroll>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\notifications\pages\list\list.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_events__["a" /* CoreEventsProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_events__["a" /* CoreEventsProvider */],
             __WEBPACK_IMPORTED_MODULE_5__providers_sites__["a" /* CoreSitesProvider */], __WEBPACK_IMPORTED_MODULE_3__providers_utils_text__["a" /* CoreTextUtilsProvider */],
             __WEBPACK_IMPORTED_MODULE_6__providers_utils_utils__["a" /* CoreUtilsProvider */], __WEBPACK_IMPORTED_MODULE_7__providers_notifications__["a" /* AddonNotificationsProvider */],
             __WEBPACK_IMPORTED_MODULE_8__addon_pushnotifications_providers_delegate__["a" /* AddonPushNotificationsDelegate */]])

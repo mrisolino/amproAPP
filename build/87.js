@@ -1,6 +1,6 @@
 webpackJsonp([87],{
 
-/***/ 1810:
+/***/ 1789:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,11 +9,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_components_module__ = __webpack_require__(931);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__attempt__ = __webpack_require__(1931);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_components_module__ = __webpack_require__(916);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__attempt__ = __webpack_require__(1910);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -66,15 +66,15 @@ var AddonModFeedbackAttemptPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1931:
+/***/ 1910:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddonModFeedbackAttemptPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_feedback__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_helper__ = __webpack_require__(248);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_feedback__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_helper__ = __webpack_require__(243);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_utils_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_utils_text__ = __webpack_require__(11);
 // (C) Copyright 2015 Martin Dougiamas
@@ -118,6 +118,7 @@ var AddonModFeedbackAttemptPage = /** @class */ (function () {
         this.component = __WEBPACK_IMPORTED_MODULE_2__providers_feedback__["a" /* AddonModFeedbackProvider */].COMPONENT;
         this.feedbackLoaded = false;
         this.feedbackId = navParams.get('feedbackId') || 0;
+        this.courseId = navParams.get('courseId');
         this.attempt = navParams.get('attempt') || false;
         this.componentId = navParams.get('moduleId');
     }
@@ -134,7 +135,11 @@ var AddonModFeedbackAttemptPage = /** @class */ (function () {
      */
     AddonModFeedbackAttemptPage.prototype.fetchData = function () {
         var _this = this;
-        return this.feedbackProvider.getItems(this.feedbackId).then(function (items) {
+        // Get the feedback to be able to now if questions should be autonumbered.
+        return this.feedbackProvider.getFeedbackById(this.courseId, this.feedbackId).then(function (feedback) {
+            _this.feedback = feedback;
+            return _this.feedbackProvider.getItems(_this.feedbackId);
+        }).then(function (items) {
             // Add responses and format items.
             _this.items = items.items.map(function (item) {
                 if (item.typ == 'label') {
@@ -144,7 +149,6 @@ var AddonModFeedbackAttemptPage = /** @class */ (function () {
                     for (var x in _this.attempt.responses) {
                         if (_this.attempt.responses[x].id == item.id) {
                             item.submittedValue = _this.attempt.responses[x].printval;
-                            delete _this.attempt.responses[x];
                             break;
                         }
                     }
@@ -162,9 +166,9 @@ var AddonModFeedbackAttemptPage = /** @class */ (function () {
     };
     AddonModFeedbackAttemptPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-mod-feedback-attempt',template:/*ion-inline-start:"C:\github\amApp\src\addon\mod\feedback\pages\attempt\attempt.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title><core-format-text  [text]=" attempt.fullname "></core-format-text></ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <core-loading [hideUntil]="feedbackLoaded">\n\n        <ion-list no-margin>\n\n            <a *ngIf="attempt.fullname" ion-item text-wrap core-user-link [userId]="attempt.userid" [attr.aria-label]=" \'core.user.viewprofile\' | translate" core-user-link [courseId]="attempt.courseid" [title]="attempt.fullname">\n\n                <ion-avatar item-start>\n\n                    <img [src]="attempt.profileimageurl" [alt]="\'core.pictureof\' | translate:{$a: attempt.fullname}" core-external-content onError="this.src=\'assets/img/user-avatar.png\'">\n\n                </ion-avatar>\n\n                <h2>{{attempt.fullname}}</h2>\n\n                <p *ngIf="attempt.timemodified">{{attempt.timemodified * 1000 | coreFormatDate:"LLL"}}</p>\n\n            </a>\n\n\n\n            <ion-item text-wrap *ngIf="!attempt.fullname">\n\n                <h2>{{ \'addon.mod_feedback.response_nr\' |translate }}: {{attempt.number}} ({{ \'addon.mod_feedback.anonymous\' |translate }})</h2>\n\n                <p *ngIf="attempt.timemodified">{{attempt.timemodified * 1000 | coreFormatDate:"LLL"}}</p>\n\n            </ion-item >\n\n            <ng-container *ngIf="items && items.length">\n\n                <ng-container *ngFor="let item of items">\n\n                    <ion-item-divider *ngIf="item.typ == \'pagebreak\'" color="light"></ion-item-divider>\n\n                    <ion-item text-wrap *ngIf="item.typ != \'pagebreak\'" [color]="item.dependitem > 0 ? \'light\' : \'\'">\n\n                        <h2 *ngIf="item.name" [core-mark-required]="item.required">\n\n                            <span *ngIf="item.itemnumber">{{item.itemnumber}}. </span><core-format-text  [component]="component" [componentId]="componentId" [text]="item.name"></core-format-text>\n\n                        </h2>\n\n                        <p *ngIf="item.submittedValue"><core-format-text  [component]="component" [componentId]="componentId" [text]=" item.submittedValue"></core-format-text></p>\n\n                    </ion-item>\n\n                </ng-container>\n\n            </ng-container>\n\n        </ion-list>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\mod\feedback\pages\attempt\attempt.html"*/,
+            selector: 'page-addon-mod-feedback-attempt',template:/*ion-inline-start:"C:\github\newAC\src\addon\mod\feedback\pages\attempt\attempt.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title><core-format-text  [text]=" attempt.fullname "></core-format-text></ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <core-loading [hideUntil]="feedbackLoaded">\n\n        <ion-list no-margin>\n\n            <a *ngIf="attempt.fullname" ion-item text-wrap core-user-link [userId]="attempt.userid" [attr.aria-label]=" \'core.user.viewprofile\' | translate" core-user-link [courseId]="attempt.courseid" [title]="attempt.fullname">\n\n                <ion-avatar item-start>\n\n                    <img [src]="attempt.profileimageurl" [alt]="\'core.pictureof\' | translate:{$a: attempt.fullname}" core-external-content onError="this.src=\'assets/img/user-avatar.png\'">\n\n                </ion-avatar>\n\n                <h2>{{attempt.fullname}}</h2>\n\n                <p *ngIf="attempt.timemodified">{{attempt.timemodified * 1000 | coreFormatDate:"LLL"}}</p>\n\n            </a>\n\n\n\n            <ion-item text-wrap *ngIf="!attempt.fullname">\n\n                <h2>{{ \'addon.mod_feedback.response_nr\' |translate }}: {{attempt.number}} ({{ \'addon.mod_feedback.anonymous\' |translate }})</h2>\n\n                <p *ngIf="attempt.timemodified">{{attempt.timemodified * 1000 | coreFormatDate:"LLL"}}</p>\n\n            </ion-item >\n\n            <ng-container *ngIf="items && items.length">\n\n                <ng-container *ngFor="let item of items">\n\n                    <ion-item-divider *ngIf="item.typ == \'pagebreak\'" color="light"></ion-item-divider>\n\n                    <ion-item text-wrap *ngIf="item.typ != \'pagebreak\'" [color]="item.dependitem > 0 ? \'light\' : \'\'">\n\n                        <h2 *ngIf="item.name" [core-mark-required]="item.required">\n\n                            <span *ngIf="feedback.autonumbering && item.itemnumber">{{item.itemnumber}}. </span><core-format-text  [component]="component" [componentId]="componentId" [text]="item.name"></core-format-text>\n\n                        </h2>\n\n                        <p *ngIf="item.submittedValue"><core-format-text  [component]="component" [componentId]="componentId" [text]=" item.submittedValue"></core-format-text></p>\n\n                    </ion-item>\n\n                </ng-container>\n\n            </ng-container>\n\n        </ion-list>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\mod\feedback\pages\attempt\attempt.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_feedback__["a" /* AddonModFeedbackProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* NavController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_feedback__["a" /* AddonModFeedbackProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_4__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_3__providers_helper__["a" /* AddonModFeedbackHelperProvider */],
             __WEBPACK_IMPORTED_MODULE_5__providers_utils_text__["a" /* CoreTextUtilsProvider */]])
     ], AddonModFeedbackAttemptPage);

@@ -1,6 +1,6 @@
 webpackJsonp([83],{
 
-/***/ 1814:
+/***/ 1793:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,11 +9,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__directives_directives_module__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_components_module__ = __webpack_require__(931);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__respondents__ = __webpack_require__(1935);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_components_module__ = __webpack_require__(916);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__respondents__ = __webpack_require__(1914);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -66,18 +66,18 @@ var AddonModFeedbackRespondentsPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1935:
+/***/ 1914:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddonModFeedbackRespondentsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_feedback__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_helper__ = __webpack_require__(248);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_feedback__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_helper__ = __webpack_require__(243);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_groups__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_utils_dom__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_split_view_split_view__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_split_view_split_view__ = __webpack_require__(104);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -234,7 +234,8 @@ var AddonModFeedbackRespondentsPage = /** @class */ (function () {
             attemptId: attempt.id,
             attempt: attempt,
             feedbackId: this.feedbackId,
-            moduleId: this.moduleId
+            moduleId: this.moduleId,
+            courseId: this.courseId
         });
     };
     /**
@@ -272,11 +273,11 @@ var AddonModFeedbackRespondentsPage = /** @class */ (function () {
     ], AddonModFeedbackRespondentsPage.prototype, "splitviewCtrl", void 0);
     AddonModFeedbackRespondentsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-mod-feedback-respondents',template:/*ion-inline-start:"C:\github\amApp\src\addon\mod\feedback\pages\respondents\respondents.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'addon.mod_feedback.responses\' |translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<core-split-view>\n\n    <ion-content>\n\n        <ion-refresher [enabled]="feedbackLoaded" (ionRefresh)="refreshFeedback($event)">\n\n            <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n        </ion-refresher>\n\n        <core-loading [hideUntil]="feedbackLoaded">\n\n            <ion-list no-margin>\n\n                <ion-item text-wrap *ngIf="groupInfo.separateGroups || groupInfo.visibleGroups">\n\n                    <ion-label id="addon-feedback-groupslabel" *ngIf="groupInfo.separateGroups">{{ \'core.groupsseparate\' | translate }}</ion-label>\n\n                    <ion-label id="addon-feedback-groupslabel" *ngIf="groupInfo.visibleGroups">{{ \'core.groupsvisible\' | translate }}</ion-label>\n\n                    <ion-select [(ngModel)]="selectedGroup" (ionChange)="loadAttempts(selectedGroup)" aria-labelledby="addon-feedback-groupslabel" interface="popover">\n\n                        <ion-option *ngFor="let groupOpt of groupInfo.groups" [value]="groupOpt.id">{{groupOpt.name}}</ion-option>\n\n                    </ion-select>\n\n                </ion-item>\n\n                <ng-container *ngIf="responses.total > 0">\n\n                    <ion-item-divider color="light">\n\n                        {{ \'addon.mod_feedback.non_anonymous_entries\' | translate : {$a: responses.total } }}\n\n                    </ion-item-divider>\n\n                    <a *ngFor="let attempt of responses.attempts" ion-item text-wrap (click)="gotoAttempt(attempt)" [class.core-split-item-selected]="attempt.id == attemptId">\n\n                        <ion-avatar item-start>\n\n                            <img [src]="attempt.profileimageurl" [alt]="\'core.pictureof\' | translate:{$a: attempt.fullname}" core-external-content onError="this.src=\'assets/img/user-avatar.png\'">\n\n                        </ion-avatar>\n\n                        <h2><core-format-text [text]="attempt.fullname"></core-format-text></h2>\n\n                        <p *ngIf="attempt.timemodified">{{attempt.timemodified * 1000 | coreFormatDate: "LLL"}}</p>\n\n                    </a>\n\n                    <ion-item padding text-center *ngIf="responses.canLoadMore">\n\n                        <!-- Button and spinner to show more attempts. -->\n\n                        <button ion-button block *ngIf="!loadingMore" (click)="loadAttempts()">{{ \'core.loadmore\' | translate }}</button>\n\n                        <ion-spinner *ngIf="loadingMore"></ion-spinner>\n\n                    </ion-item>\n\n                </ng-container>\n\n                <ng-container *ngIf="anonResponses.total > 0">\n\n                    <ion-item-divider color="light">\n\n                        {{ \'addon.mod_feedback.anonymous_entries\' |translate : {$a: anonResponses.total } }}\n\n                    </ion-item-divider>\n\n                    <a *ngFor="let attempt of anonResponses.attempts" ion-item text-wrap (click)="gotoAttempt(attempt)">\n\n                        <h2>{{ \'addon.mod_feedback.response_nr\' |translate }}: {{attempt.number}}</h2>\n\n                    </a>\n\n                    <ion-item padding text-center *ngIf="anonResponses.canLoadMore">\n\n                        <!-- Button and spinner to show more attempts. -->\n\n                        <button ion-button block *ngIf="!loadingMore" (click)="loadAttempts()">{{ \'core.loadmore\' | translate }}</button>\n\n                        <ion-spinner *ngIf="loadingMore"></ion-spinner>\n\n                    </ion-item>\n\n                </ng-container>\n\n            </ion-list>\n\n        </core-loading>\n\n    </ion-content>\n\n</core-split-view>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\mod\feedback\pages\respondents\respondents.html"*/,
+            selector: 'page-addon-mod-feedback-respondents',template:/*ion-inline-start:"C:\github\newAC\src\addon\mod\feedback\pages\respondents\respondents.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'addon.mod_feedback.responses\' |translate }}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<core-split-view>\n\n    <ion-content>\n\n        <ion-refresher [enabled]="feedbackLoaded" (ionRefresh)="refreshFeedback($event)">\n\n            <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n        </ion-refresher>\n\n        <core-loading [hideUntil]="feedbackLoaded">\n\n            <ion-list no-margin>\n\n                <ion-item text-wrap *ngIf="groupInfo.separateGroups || groupInfo.visibleGroups">\n\n                    <ion-label id="addon-feedback-groupslabel" *ngIf="groupInfo.separateGroups">{{ \'core.groupsseparate\' | translate }}</ion-label>\n\n                    <ion-label id="addon-feedback-groupslabel" *ngIf="groupInfo.visibleGroups">{{ \'core.groupsvisible\' | translate }}</ion-label>\n\n                    <ion-select [(ngModel)]="selectedGroup" (ionChange)="loadAttempts(selectedGroup)" aria-labelledby="addon-feedback-groupslabel" interface="popover">\n\n                        <ion-option *ngFor="let groupOpt of groupInfo.groups" [value]="groupOpt.id">{{groupOpt.name}}</ion-option>\n\n                    </ion-select>\n\n                </ion-item>\n\n                <ng-container *ngIf="responses.total > 0">\n\n                    <ion-item-divider color="light">\n\n                        {{ \'addon.mod_feedback.non_anonymous_entries\' | translate : {$a: responses.total } }}\n\n                    </ion-item-divider>\n\n                    <a *ngFor="let attempt of responses.attempts" ion-item text-wrap (click)="gotoAttempt(attempt)" [class.core-split-item-selected]="attempt.id == attemptId">\n\n                        <ion-avatar item-start>\n\n                            <img [src]="attempt.profileimageurl" [alt]="\'core.pictureof\' | translate:{$a: attempt.fullname}" core-external-content onError="this.src=\'assets/img/user-avatar.png\'">\n\n                        </ion-avatar>\n\n                        <h2><core-format-text [text]="attempt.fullname"></core-format-text></h2>\n\n                        <p *ngIf="attempt.timemodified">{{attempt.timemodified * 1000 | coreFormatDate: "LLL"}}</p>\n\n                    </a>\n\n                    <ion-item padding text-center *ngIf="responses.canLoadMore">\n\n                        <!-- Button and spinner to show more attempts. -->\n\n                        <button ion-button block *ngIf="!loadingMore" (click)="loadAttempts()">{{ \'core.loadmore\' | translate }}</button>\n\n                        <ion-spinner *ngIf="loadingMore"></ion-spinner>\n\n                    </ion-item>\n\n                </ng-container>\n\n                <ng-container *ngIf="anonResponses.total > 0">\n\n                    <ion-item-divider color="light">\n\n                        {{ \'addon.mod_feedback.anonymous_entries\' |translate : {$a: anonResponses.total } }}\n\n                    </ion-item-divider>\n\n                    <a *ngFor="let attempt of anonResponses.attempts" ion-item text-wrap (click)="gotoAttempt(attempt)" [class.core-split-item-selected]="attempt.id == attemptId">\n\n                        <h2>{{ \'addon.mod_feedback.response_nr\' |translate }}: {{attempt.number}}</h2>\n\n                    </a>\n\n                    <ion-item padding text-center *ngIf="anonResponses.canLoadMore">\n\n                        <!-- Button and spinner to show more attempts. -->\n\n                        <button ion-button block *ngIf="!loadingMore" (click)="loadAttempts()">{{ \'core.loadmore\' | translate }}</button>\n\n                        <ion-spinner *ngIf="loadingMore"></ion-spinner>\n\n                    </ion-item>\n\n                </ng-container>\n\n            </ion-list>\n\n        </core-loading>\n\n    </ion-content>\n\n</core-split-view>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\mod\feedback\pages\respondents\respondents.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_feedback__["a" /* AddonModFeedbackProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_feedback__["a" /* AddonModFeedbackProvider */],
             __WEBPACK_IMPORTED_MODULE_4__providers_groups__["a" /* CoreGroupsProvider */], __WEBPACK_IMPORTED_MODULE_5__providers_utils_dom__["a" /* CoreDomUtilsProvider */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_helper__["a" /* AddonModFeedbackHelperProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* NavController */]])
+            __WEBPACK_IMPORTED_MODULE_3__providers_helper__["a" /* AddonModFeedbackHelperProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */]])
     ], AddonModFeedbackRespondentsPage);
     return AddonModFeedbackRespondentsPage;
 }());

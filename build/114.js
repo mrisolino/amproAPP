@@ -1,6 +1,6 @@
 webpackJsonp([114],{
 
-/***/ 1781:
+/***/ 1761:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,9 +10,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__event__ = __webpack_require__(1902);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_pipes_module__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__event__ = __webpack_require__(1882);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +63,7 @@ var AddonCalendarEventPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1902:
+/***/ 1882:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71,15 +71,14 @@ var AddonCalendarEventPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_calendar__ = __webpack_require__(249);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_helper__ = __webpack_require__(933);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_courses_providers_courses__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_calendar__ = __webpack_require__(244);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_helper__ = __webpack_require__(918);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_courses_providers_courses__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_sites__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_local_notifications__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_local_notifications__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_course_providers_course__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_moment__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils_time__ = __webpack_require__(22);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,7 +116,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Page that displays a single calendar event.
  */
 var AddonCalendarEventPage = /** @class */ (function () {
-    function AddonCalendarEventPage(translate, calendarProvider, navParams, domUtils, coursesProvider, calendarHelper, sitesProvider, localNotificationsProvider, courseProvider) {
+    function AddonCalendarEventPage(translate, calendarProvider, navParams, domUtils, coursesProvider, timeUtils, calendarHelper, sitesProvider, localNotificationsProvider, courseProvider) {
         var _this = this;
         this.translate = translate;
         this.calendarProvider = calendarProvider;
@@ -140,7 +139,7 @@ var AddonCalendarEventPage = /** @class */ (function () {
                     _this.defaultTimeReadable = _this.translate.instant('core.settings.disabled');
                 }
                 else {
-                    _this.defaultTimeReadable = __WEBPACK_IMPORTED_MODULE_10_moment__["duration"](defaultTime * 60 * 1000).humanize();
+                    _this.defaultTimeReadable = timeUtils.formatTime(defaultTime * 60);
                 }
             });
         }
@@ -219,10 +218,10 @@ var AddonCalendarEventPage = /** @class */ (function () {
     ], AddonCalendarEventPage.prototype, "content", void 0);
     AddonCalendarEventPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-calendar-event',template:/*ion-inline-start:"C:\github\amApp\src\addon\calendar\pages\event\event.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title><core-format-text [text]="title"></core-format-text></ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="eventLoaded" (ionRefresh)="refreshEvent($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-loading [hideUntil]="eventLoaded">\n\n        <ion-card>\n\n            <ion-card-content>\n\n                <ion-card-title text-wrap>\n\n                    <core-icon *ngIf="event.icon && !event.moduleIcon" [name]="event.icon" item-start></core-icon>\n\n                    <core-format-text [text]="event.name"></core-format-text>\n\n                </ion-card-title>\n\n                <ion-item text-wrap>\n\n                    <h2>{{ \'addon.calendar.eventstarttime\' | translate}}</h2>\n\n                    <p>{{ event.timestart | coreToLocaleString }}</p>\n\n                </ion-item>\n\n                <ion-item text-wrap *ngIf="event.timeduration > 0">\n\n                    <h2>{{ \'addon.calendar.eventendtime\' | translate}}</h2>\n\n                    <p>{{ (event.timestart + event.timeduration) |  coreToLocaleString }}</p>\n\n                </ion-item>\n\n                <ion-item text-wrap *ngIf="courseName">\n\n                    <h2>{{ \'core.course\' | translate}}</h2>\n\n                    <p><core-format-text [text]="courseName"></core-format-text></p>\n\n                </ion-item>\n\n                <ion-item text-wrap *ngIf="event.moduleIcon">\n\n                    <img *ngIf="event.moduleIcon" src="{{event.moduleIcon}}" item-start alt="" role="presentation" class="core-module-icon"> {{event.moduleName}}\n\n                </ion-item>\n\n                <ion-item>\n\n                    <p text-wrap *ngIf="event.description">\n\n                        <core-format-text [text]="event.description"></core-format-text>\n\n                    </p>\n\n                </ion-item>\n\n            </ion-card-content>\n\n        </ion-card>\n\n\n\n        <ion-card list *ngIf="notificationsEnabled">\n\n            <ion-item>\n\n                <ion-label>{{ \'addon.calendar.notifications\' | translate }}</ion-label>\n\n                <ion-select [(ngModel)]="notificationTime" (ionChange)="updateNotificationTime($event)" interface="popover">\n\n                    <ion-option value="-1">{{ \'core.defaultvalue\' | translate :{$a: defaultTimeReadable} }}</ion-option>\n\n                    <ion-option value="0">{{ \'core.settings.disabled\' | translate }}</ion-option>\n\n                    <ion-option value="10">{{ 600 | coreDuration }}</ion-option>\n\n                    <ion-option value="30">{{ 1800 | coreDuration }}</ion-option>\n\n                    <ion-option value="60">{{ 3600 | coreDuration }}</ion-option>\n\n                    <ion-option value="120">{{ 7200 | coreDuration }}</ion-option>\n\n                    <ion-option value="360">{{ 21600 | coreDuration }}</ion-option>\n\n                    <ion-option value="720">{{ 43200 | coreDuration }}</ion-option>\n\n                    <ion-option value="1440">{{ 86400 | coreDuration }}</ion-option>\n\n                </ion-select>\n\n            </ion-item>\n\n        </ion-card>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\calendar\pages\event\event.html"*/,
+            selector: 'page-addon-calendar-event',template:/*ion-inline-start:"C:\github\newAC\src\addon\calendar\pages\event\event.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title><core-format-text [text]="title"></core-format-text></ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <ion-refresher [enabled]="eventLoaded" (ionRefresh)="refreshEvent($event)">\n\n        <ion-refresher-content pullingText="{{ \'core.pulltorefresh\' | translate }}"></ion-refresher-content>\n\n    </ion-refresher>\n\n    <core-loading [hideUntil]="eventLoaded">\n\n        <ion-card>\n\n            <ion-card-content>\n\n                <ion-card-title text-wrap>\n\n                    <core-icon *ngIf="event.icon && !event.moduleIcon" [name]="event.icon" item-start></core-icon>\n\n                    <core-format-text [text]="event.name"></core-format-text>\n\n                </ion-card-title>\n\n                <ion-item text-wrap>\n\n                    <h2>{{ \'addon.calendar.eventstarttime\' | translate}}</h2>\n\n                    <p>{{ event.timestart | coreToLocaleString }}</p>\n\n                </ion-item>\n\n                <ion-item text-wrap *ngIf="event.timeduration > 0">\n\n                    <h2>{{ \'addon.calendar.eventendtime\' | translate}}</h2>\n\n                    <p>{{ (event.timestart + event.timeduration) |  coreToLocaleString }}</p>\n\n                </ion-item>\n\n                <ion-item text-wrap *ngIf="courseName">\n\n                    <h2>{{ \'core.course\' | translate}}</h2>\n\n                    <p><core-format-text [text]="courseName"></core-format-text></p>\n\n                </ion-item>\n\n                <ion-item text-wrap *ngIf="event.moduleIcon">\n\n                    <img *ngIf="event.moduleIcon" src="{{event.moduleIcon}}" item-start alt="" role="presentation" class="core-module-icon"> {{event.moduleName}}\n\n                </ion-item>\n\n                <ion-item>\n\n                    <p text-wrap *ngIf="event.description">\n\n                        <core-format-text [text]="event.description"></core-format-text>\n\n                    </p>\n\n                </ion-item>\n\n            </ion-card-content>\n\n        </ion-card>\n\n\n\n        <ion-card list *ngIf="notificationsEnabled">\n\n            <ion-item>\n\n                <ion-label>{{ \'addon.calendar.notifications\' | translate }}</ion-label>\n\n                <ion-select [(ngModel)]="notificationTime" (ionChange)="updateNotificationTime($event)" interface="popover">\n\n                    <ion-option value="-1">{{ \'core.defaultvalue\' | translate :{$a: defaultTimeReadable} }}</ion-option>\n\n                    <ion-option value="0">{{ \'core.settings.disabled\' | translate }}</ion-option>\n\n                    <ion-option value="10">{{ 600 | coreDuration }}</ion-option>\n\n                    <ion-option value="30">{{ 1800 | coreDuration }}</ion-option>\n\n                    <ion-option value="60">{{ 3600 | coreDuration }}</ion-option>\n\n                    <ion-option value="120">{{ 7200 | coreDuration }}</ion-option>\n\n                    <ion-option value="360">{{ 21600 | coreDuration }}</ion-option>\n\n                    <ion-option value="720">{{ 43200 | coreDuration }}</ion-option>\n\n                    <ion-option value="1440">{{ 86400 | coreDuration }}</ion-option>\n\n                </ion-select>\n\n            </ion-item>\n\n        </ion-card>\n\n    </core-loading>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\calendar\pages\event\event.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_3__providers_calendar__["a" /* AddonCalendarProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_6__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_5__core_courses_providers_courses__["a" /* CoreCoursesProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_3__providers_calendar__["a" /* AddonCalendarProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_6__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_5__core_courses_providers_courses__["a" /* CoreCoursesProvider */], __WEBPACK_IMPORTED_MODULE_10__providers_utils_time__["a" /* CoreTimeUtilsProvider */],
             __WEBPACK_IMPORTED_MODULE_4__providers_helper__["a" /* AddonCalendarHelperProvider */], __WEBPACK_IMPORTED_MODULE_7__providers_sites__["a" /* CoreSitesProvider */],
             __WEBPACK_IMPORTED_MODULE_8__providers_local_notifications__["a" /* CoreLocalNotificationsProvider */], __WEBPACK_IMPORTED_MODULE_9__core_course_providers_course__["a" /* CoreCourseProvider */]])
     ], AddonCalendarEventPage);

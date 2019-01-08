@@ -1,6 +1,6 @@
 webpackJsonp([24],{
 
-/***/ 1877:
+/***/ 1856:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,8 +9,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sites__ = __webpack_require__(2002);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sites__ = __webpack_require__(1981);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +57,7 @@ var CoreLoginSitesPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2002:
+/***/ 1981:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68,8 +68,8 @@ var CoreLoginSitesPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_sites__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_utils_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_utils_text__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__addon_pushnotifications_providers_pushnotifications__ = __webpack_require__(251);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_helper__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__addon_pushnotifications_providers_pushnotifications__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_helper__ = __webpack_require__(79);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -197,7 +197,7 @@ var CoreLoginSitesPage = /** @class */ (function () {
     };
     CoreLoginSitesPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-core-login-sites',template:/*ion-inline-start:"C:\github\amApp\src\core\login\pages\sites\sites.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>Usuarios</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button *ngIf="sites && sites.length > 0" ion-button icon-only (click)="toggleDelete()" [attr.aria-label]="\'core.delete\' | translate">\n\n                <ion-icon name="create" ios="md-create"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content class="has-fab">\n\n    <ion-list>\n\n        <a ion-item (click)="login(site.id)" *ngFor="let site of sites; let idx = index" detail-none>\n\n            <ion-avatar item-start>\n\n                <img [src]="site.avatar" core-external-content [siteId]="site.id" alt="{{ \'core.pictureof\' | translate:{$a: site.fullname} }}" role="presentation" onError="this.src=\'assets/img/user-avatar.png\'">\n\n            </ion-avatar>\n\n            <h2>{{site.fullName}}</h2>\n\n            <p><core-format-text [text]="site.siteName" clean="true" watch="true" [siteId]="site.id"></core-format-text></p>\n\n            <ion-badge item-end *ngIf="!showDelete && site.badge">{{site.badge}}</ion-badge>\n\n            <button *ngIf="showDelete" item-end ion-button icon-only clear color="danger" (click)="deleteSite($event, idx)" [attr.aria-label]="\'core.delete\' | translate">\n\n                <ion-icon name="trash"></ion-icon>\n\n            </button>\n\n        </a>\n\n    </ion-list>\n\n    <ion-fab bottom right>\n\n        <button ion-fab (click)="add()" [attr.aria-label]="\'core.add\' | translate">\n\n            <ion-icon name="add"></ion-icon>\n\n        </button>\n\n    </ion-fab>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\core\login\pages\sites\sites.html"*/,
+            selector: 'page-core-login-sites',template:/*ion-inline-start:"C:\github\newAC\src\core\login\pages\sites\sites.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'core.settings.sites\' | translate }}</ion-title>\n\n\n\n        <ion-buttons end>\n\n            <button *ngIf="sites && sites.length > 0" ion-button icon-only (click)="toggleDelete()" [attr.aria-label]="\'core.delete\' | translate">\n\n                <ion-icon name="create" ios="md-create"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content class="has-fab">\n\n    <ion-list>\n\n        <a ion-item (click)="login(site.id)" *ngFor="let site of sites; let idx = index" detail-none>\n\n            <ion-avatar item-start>\n\n                <img [src]="site.avatar" core-external-content [siteId]="site.id" alt="{{ \'core.pictureof\' | translate:{$a: site.fullname} }}" role="presentation" onError="this.src=\'assets/img/user-avatar.png\'">\n\n            </ion-avatar>\n\n            <h2>{{site.fullName}}</h2>\n\n            <p><core-format-text [text]="site.siteName" clean="true" [siteId]="site.id"></core-format-text></p>\n\n            <p>{{site.siteUrl}}</p>\n\n            <ion-badge item-end *ngIf="!showDelete && site.badge">{{site.badge}}</ion-badge>\n\n            <button *ngIf="showDelete" item-end ion-button icon-only clear color="danger" (click)="deleteSite($event, idx)" [attr.aria-label]="\'core.delete\' | translate">\n\n                <ion-icon name="trash"></ion-icon>\n\n            </button>\n\n        </a>\n\n    </ion-list>\n\n    <ion-fab bottom end>\n\n        <button ion-fab (click)="add()" [attr.aria-label]="\'core.add\' | translate">\n\n            <ion-icon name="add"></ion-icon>\n\n        </button>\n\n    </ion-fab>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\core\login\pages\sites\sites.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_5__providers_utils_text__["a" /* CoreTextUtilsProvider */],
             __WEBPACK_IMPORTED_MODULE_3__providers_sites__["a" /* CoreSitesProvider */], __WEBPACK_IMPORTED_MODULE_7__providers_helper__["a" /* CoreLoginHelperProvider */], __WEBPACK_IMPORTED_MODULE_2__providers_logger__["a" /* CoreLoggerProvider */],

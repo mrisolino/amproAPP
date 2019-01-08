@@ -1,6 +1,6 @@
 webpackJsonp([52],{
 
-/***/ 1847:
+/***/ 1827:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,9 +8,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddonNotesAddPageModule", function() { return AddonNotesAddPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__add__ = __webpack_require__(1971);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__add__ = __webpack_require__(1951);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives_directives_module__ = __webpack_require__(14);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +57,7 @@ var AddonNotesAddPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 1971:
+/***/ 1951:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66,7 +66,7 @@ var AddonNotesAddPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_app__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_utils_dom__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_notes__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_notes__ = __webpack_require__(161);
 // (C) Copyright 2015 Martin Dougiamas
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -138,9 +138,9 @@ var AddonNotesAddPage = /** @class */ (function () {
     };
     AddonNotesAddPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-addon-notes-add',template:/*ion-inline-start:"C:\github\amApp\src\addon\notes\pages\add\add.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{ \'addon.notes.addnewnote\' | translate }}</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n    <form name="itemEdit" (ngSubmit)="addNote()">\n\n        <ion-item>\n\n            <ion-label>{{ \'addon.notes.publishstate\' | translate }}</ion-label>\n\n            <ion-select [(ngModel)]="publishState" name="publishState" interface="popover">\n\n                <ion-option value="personal">{{ \'addon.notes.personalnotes\' | translate }}</ion-option>\n\n                <ion-option value="course">{{ \'addon.notes.coursenotes\' | translate }}</ion-option>\n\n                <ion-option value="site">{{ \'addon.notes.sitenotes\' | translate }}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-textarea placeholder="{{ \'addon.notes.note\' | translate }}" rows="5" [(ngModel)]="text" name="text" required="required"></ion-textarea>\n\n        </ion-item>\n\n        <button ion-button block margin-vertical type="submit" [disabled]="processing || text.length < 2">\n\n            {{ \'addon.notes.addnewnote\' | translate }}\n\n        </button>\n\n    </form>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\amApp\src\addon\notes\pages\add\add.html"*/,
+            selector: 'page-addon-notes-add',template:/*ion-inline-start:"C:\github\newAC\src\addon\notes\pages\add\add.html"*/'<ion-header>\n\n    <ion-navbar core-back-button>\n\n        <ion-title>{{ \'addon.notes.addnewnote\' | translate }}</ion-title>\n\n        <ion-buttons end>\n\n            <button ion-button icon-only (click)="closeModal()" [attr.aria-label]="\'core.close\' | translate">\n\n                <ion-icon name="close"></ion-icon>\n\n            </button>\n\n        </ion-buttons>\n\n    </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n    <form name="itemEdit" (ngSubmit)="addNote()">\n\n        <ion-item>\n\n            <ion-label>{{ \'addon.notes.publishstate\' | translate }}</ion-label>\n\n            <ion-select [(ngModel)]="publishState" name="publishState" interface="popover">\n\n                <ion-option value="personal">{{ \'addon.notes.personalnotes\' | translate }}</ion-option>\n\n                <ion-option value="course">{{ \'addon.notes.coursenotes\' | translate }}</ion-option>\n\n                <ion-option value="site">{{ \'addon.notes.sitenotes\' | translate }}</ion-option>\n\n            </ion-select>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-textarea placeholder="{{ \'addon.notes.note\' | translate }}" rows="5" [(ngModel)]="text" name="text" required="required"></ion-textarea>\n\n        </ion-item>\n\n        <button ion-button block margin-vertical type="submit" [disabled]="processing || text.length < 2">\n\n            {{ \'addon.notes.addnewnote\' | translate }}\n\n        </button>\n\n    </form>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\github\newAC\src\addon\notes\pages\add\add.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["B" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__providers_app__["a" /* CoreAppProvider */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["D" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__providers_app__["a" /* CoreAppProvider */],
             __WEBPACK_IMPORTED_MODULE_3__providers_utils_dom__["a" /* CoreDomUtilsProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_notes__["a" /* AddonNotesProvider */]])
     ], AddonNotesAddPage);
     return AddonNotesAddPage;
